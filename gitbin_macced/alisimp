@@ -1,0 +1,67 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco}	→ \033[38;5;11mtype:\033[38;5;118mvio-basadmin: show important alias"
+	echo -e "\033[38;5;118m ⇒  \033[38;5;195mShow los alias tan importantes como bin scripts \033[38;5;11m⭐\033[38;5;195m y recordar usarlos \033[38;5;11m⭐\033[38;5;195m \033[38;5;212m❤️️ \n\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES 'S
+##VARS-FILES 'B
+##FUNCTIONS 'F
+source Opte.fu
+source Asksure.fu
+##DIRECTORIES 'D
+##FILES 'I
+#VARIABLES 'V
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; # 'O
+?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN 'M
+
+echo -e "\033[38;5;11malias \033[38;5;195mporta\033[38;5;11m=\033[38;5;212m'\033[38;5;118mport22-abiertoono casipi\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195mspi\033[38;5;11m=\033[38;5;212m'\033[38;5;118mssh pi@casipi\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195msgi\033[38;5;11m=\033[38;5;212m'\033[38;5;118mssh git@casita\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195mgpp\033[38;5;11m=\033[38;5;212m'\033[38;5;118mgit push pigit\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195msema\033[38;5;11m=\033[38;5;212m'\033[38;5;118mselect maes in \`find /Users/violetagonzalezgarcia/gitclones/.clogs/maestros -type f -name *oclog\`; do vim \$maes; break ; done\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195mwog\033[38;5;11m=\033[38;5;212m'\033[38;5;118msed -ne '25,32p' /Users/violetagonzalezgarcia/gitclones/.bashrc | grep true || echo none\033[38;5;212m'"
+echo -e "\033[38;5;11malias \033[38;5;195mclosclo\033[38;5;11m=\033[38;5;212m'\033[38;5;118m\033[38;5;118msed -i '' '25,32s/true/false/' /Users/violetagonzalezgarcia/gitclones/.bashrc && bash\033[38;5;212m'"
+cat << EOF
+CUIDADO CON LA BACKSLASHES!!!!
+alias gethtmlscifoco='sed -ne "/^*/s?[^/]*/\([^)]*\))?\1?p" _index.md'
+alias clog='cd /Users/violetagonzalezgarcia/gitclones/.clogs'
+alias clom='cd /Users/violetagonzalezgarcia/gitclones/.clogs/maestros'
+alias clomanov='clomanow -v'
+alias sosot='cd /Users/violetagonzalezgarcia/gitclones/.vim/sourceText/sot_instalacionfotovoltaica'
+alias maesyn='sudo vim /usr/share/vim/vim82/syntax/maestro.vim'
+alias clomano='clomanow -o'
+alias gres='shao grep "[^-]type"'
+alias nmtr='sudo nmap -sL --traceroute 192.168.0.*'
+alias ipad='ip addr | grep -o "inet 192.*24"'
+alias cip='ip addr | grep -E "192\.168\.0\..." && nmap -sn 192.168.0.* | grep -E "192\.168\.0\..."'
+alias hoss='sudo vim /etc/hosts'
+alias cfca='cd /Users/violetagonzalezgarcia/gitclones/.filecollections_vio/awkfiles'
+alias cas='cd /Users/violetagonzalezgarcia/gitclones/notes/awksed_notes'
+#alias va="vim /Users/violetagonzalezgarcia/gitclones/.filecollections_vio/awkfiles/v.awk.sh"
+#alias rva='/Users/violetagonzalezgarcia/gitclones/.filecollections_vio/awkfiles/v.awk.sh'
+alias vaw='vim /Users/violetagonzalezgarcia/gitclones/notes/greatbash_notes/awk.gbexes'
+#alias awf="open_an_awk_file"
+alias aw="./awk_*awk"
+rsolaaune_solasol_energias_renovableirte_safyboxsmoa_idom_energias_renovablesngeniesol_energias_renovablesrnsolar_ingenierosinit_solar

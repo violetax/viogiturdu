@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\033[38;5;118m${cuseco} ⇒  \033[38;5;11mtype:\033[38;5;118mvio-helper ⇒  select vim evince okular cd tree"
+	echo -e "\033[38;5;195m sedo and cd to selected dir \033[38;5;11m⭐ or open document \033[38;5;11m⭐ \033[38;5;195m as selected \033[38;5;212m and tree the dir ❤️️ 
+	\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+	return 25
+}
+
+## SOURCES 
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source Continua.fu
+##DIRECTORIES 
+##FILES
+#VARIABLES
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+### MAIN
+COLUMNS=12
+select d in $(ls -A | sort -V); do [[ -d $d ]] && cd $d && tree -d && sedo || select w in vim libreoffice evince okular; do $w $d 2>/dev/null ; done; done
+#select d in $(ls -A | sort -V && find . -type f -name *log); do [[ -d $d ]] && cd $d && tree -d && sedo || select w in vim libreoffice evince okular; do $w $d ; done; done

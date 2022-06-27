@@ -1,0 +1,73 @@
+#!/bin/bash
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\e[38;5;118m${cuseco} → \e[38;5;11mtype:\e[38;5;118mvio-bas-learn: python cd select vim python"
+	echo -e "\e[38;5;118m⇒  \e[38;5;195mSelect py file en \e[38;5;11mdefault → oopdir \e[38;5;195m or if \e[38;5;9mc option \e[38;5;195mcurrent directory.
+	Y \e[38;5;118mcommand → \$1 → \e[38;5;208mvim, cat, rm, 🐍 (python3.9) \e[38;5;195m or if \e[38;5;9mt option \e[38;5;208m mv, cp \e[38;5;195mto either \$2 or read newname. 
+	⭐\e[38;5;11mdefault \$1 \e[38;5;118m C A T ⭐ ❤️️ 
+\t\\e[38;5;43mFor example:
+\t👉\t\e[38;5;228m${cuseco} -t mv \e[38;5;218m[new name here for the \e[38;5;228m\$REPLY file\e[38;5;218m, or get asked for it] \e[0m"
+}
+
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+
+function getname() {
+	[[ ${trasiego} = true ]] && read -p " New name → " newname
+	whereto=${destdir}/${newname}
+}
+##DIRECTORIES  
+curdir=$(pwd)
+pyfcdir=/home/violeta/.filecollections_vio/pyfiles
+oopdir=/home/violeta/.filecollections_vio/pyfiles/oop-completebootcamp
+##FILES
+#VARIABLES
+trasiego=false
+collect=false
+dcommand=("vim" "mv" "cp" "rm" "pyr")
+
+while getopts  ":ehtc" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		t)
+			trasiego=true
+			;;
+		c)
+			collect=true
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1)) 
+
+### MAIN
+for c in $(echo "${dcommand[@]}")
+do
+	[[ ${c} == $1 ]] && dcommand=${c} && break  || dcommand="cat"
+done
+[[ ${dcommand} == "pyr" ]] && dcommand="/usr/bin/python3.9" 
+
+if [[ ${collect} = false ]]; then 
+	wherein=${oopdir} && destdir=${curdir}
+else
+	wherein=${curdir} && destdir=${oopdir} 
+fi
+
+select dpyf in $(find ${wherein} -type f -name "*py" -exec basename {} \; )
+do
+	[[ $2 ]] && newname=$2 || getname
+	pyf=${wherein}/${dpyf}   
+	[[ ${dcommand} != "vim" ]] && ${dcommand} ${pyf} ${whereto} || ${dcommand} ${pyf}
+	break
+done	

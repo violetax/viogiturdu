@@ -1,0 +1,53 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco} → \033[38;5;11mtype:\033[38;5;118mTYPE"
+	echo -e "\033[38;5;118m⇒  \033[38;5;195mENCONSTRUCCIÓN 
+	⭐\033[38;5;195m ALGOESTRELLADO ⭐ ❤️️ 
+\t\\033[38;5;43mFor example:
+\t\\033[38;5;228m${cuseco} -$o\033[0m"
+}
+
+## SOURCES 
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+##DIRECTORIES 
+##FILES
+#VARIABLES
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; ?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN
+wog=$(sed -ne '/^geus=/,/^extendother=/p' /Users/violetagonzalezgarcia/gitclones/.bashrc | grep true )
+wog=$(echo $wog | sed -ne "s/=.*//p" )
+
+linu=$(grep -n "${wog}Pending" lat | awk -F: '{print $1}')
+
+clomano
+
+lat -e 
+
+echo -e \"\033[38;5;212m 🌞 have U gitted?? \"
+
+read ifgit
+
+sed -i '' '25,32s/true/false/' /Users/violetagonzalezgarcia/gitclones/.bashrc && echo -e \"\033[38;5;208m ⭐ ⭐ ⭐ DAY D✨NG\033[38;5;11m!!!!!! 🤗 \" && bash

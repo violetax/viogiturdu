@@ -1,0 +1,88 @@
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\e[38;5;118m${cuseco} ⇒  \e[38;5;11mtype:\e[38;5;118mvio-pro ⇒  if while for vim"
+	echo -e "\e[38;5;118m${cuseco} ⇒  \e[38;5;195m crear multitests \e[38;5;11m⭐ abro un ÚNICO file donde se apendan 5 textos \e[38;5;11m⭐ \e[38;5;195m pregunta, respuesta correcta y 3 respuesats malas \e[38;5;212m PENDING improve ❤️️ 
+	\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+	return 25
+}
+
+while getopts ":eh" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis 2>/dev/null
+			[[ "$?" == 25 ]] || echo -e "PENDING whatis!! 🔥 "
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+
+#MAIN
+
+if [[ $1 ]]; then
+	testfile=$1
+else
+	if [[ $(ls *mitest 2>/dev/null ) ]]; then 
+		echo -ne "\e[38;5;225m" && ls -1 *mitest && echo -e "\n\e[38;5;14m🐒 select a mitest??\n"
+		if asksure; then
+			if [[ $(ls *mitest | wc -l) == 1 ]]; then
+			   testfile=$(ls *mitest)
+		    else
+				select t in $(ls *mitest)
+				do
+					testfile=${t} 
+					break
+				done
+			fi
+		fi
+	fi
+fi
+	
+[[ ! ${testfile} ]] && echo -ne "\e[38;5;195m" && read -p "enter mitest-file name (sin ext) → " testfilene || echo -e "\e[38;5;195m 👉 ${testfile}"
+
+[[ ${testfilene} ]] && testfile=${testfilene}.mitest  
+
+if [[ -e ${testfile} ]]; then
+	let count=$(grep "»" ${testfile} | wc -l)
+else
+	let count=0
+fi
+let nextq=${count}+1 
+
+while true
+do
+	echo -e "\e[38;5;218m 🐒 meter pregunta 👉 \e[38;5;118m ${nextq} ⚡⚡⚡\e[38;5;195m " 
+	for i in p a b c d 
+	do
+		[[ ${i} == "p" ]] && let count=${count}+1
+		echo -ne "\e[38;5;195mpregunta → \e[38;5;51m" && read  pregunta
+		echo -ne "\e[38;5;195mrespuesta correcta → \e[38;5;190m" && read  correcta
+		if [[ ${malis} = true ]]; then  
+			echo -ne "\e[38;5;195mmala 1 → \e[38;5;190m" && read  mala1
+			echo -ne "\e[38;5;195mmala 2 → \e[38;5;190m" && read  mala2
+			echo -ne "\e[38;5;195mmala 3 → \e[38;5;190m" && read  mala3
+		else
+			mala1="INSERTHERE1"
+			mala2="INSERTHERE2"
+			mala3="INSERTHERE3"
+		fi
+
+		echo -e "${count} » ${pregunta}\n [a] ${correcta} \n [b] ${mala1} \n [c] ${mala2} \n [d] ${mala3}" >> ${testfile}  
+		echo -e "\e[38;5;228m 🐒 🐒🐒🐒 🤗 "
+	done
+done

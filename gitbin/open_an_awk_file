@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\e[38;5;118m${cuseco}	⇒ 	\\e[38;5;11mtype:\\e[38;5;118mawk ⇒  vim, like source text, chmod"
+echo -e "	\\e[38;5;195m Create an awk file con el name del current directory \\e[38;5;11m alias ⇒  ⭐\\e[38;5;195m awf \\e[38;5;11m⭐\\e[38;5;195m \\e[38;5;212m❤️️ \\n\\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+
+function create() {
+	touch $1
+	echo -e "#!/usr/bin/awk -f" >> $1
+	#chmod +x $1
+	vim $1
+}
+
+
+##DIRECTORIES
+##FILES
+#VARIABLES
+presuf=awk
+thisd=$(pwd | awk -F "/" '{print $NF}')
+fname="${presuf}_${thisd}.${presuf}"  
+
+### MAIN
+while getopts ":eh" o; do 
+	case "${o}" in 
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+if [[ ! ${fname} ]]; then
+	#TRAMPA!! el test bueno sería -e, pero ahora paso...
+	create ${fname}   
+else
+	vim ${fname}  
+fi

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\033[38;5;11mtype:\033[38;5;118mpdftk → find, pdftk, grep, awk ⇒  get number of pages"
+echo -e "	\033[38;5;195m ENCONSTRUCCIÓN \033[38;5;11m⭐\033[38;5;195m ALGOESTRELLADO \033[38;5;11m⭐\033[38;5;195m \033[38;5;212m❤️️ \n\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+##DIRECTORIES
+##FILES
+#VARIABLES
+
+### MAIN
+while getopts ":eh" o; do
+    gralGetops
+done
+shift $((OPTIND-1))
+
+if [[ $1 ]]; then
+	pdf=$1
+else
+	pdf="*.pdf"
+fi
+
+find . -name "${pdf}" -exec pdftk {} dump_data output \; | grep NumberOfPages | awk '{s+=$2} END {print s}'

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mselect and vim → de find xargs grep ⇒  in DEBIAN USR LOCAL"
+echo -e "	\\033[38;5;195m A;ade select a \\033[38;5;11m⭐\\033[38;5;195m gigul!\\033[38;5;11m⭐\\033[38;5;195m \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+##DIRECTORIES
+##FILES
+#VARIABLES
+dterm=$1
+### MAIN
+while getopts ":eh" o; do
+    gralGetops
+done
+shift $((OPTIND-1))
+
+[[ ! $1 ]] && echo -e "\033[38;5;118mpero qué término???"  && exit
+
+
+select f in $(gigul ${dterm} | vawk : 1)
+do
+	vim $f
+	break
+done 

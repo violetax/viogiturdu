@@ -1,0 +1,87 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mgeus → vim ⇒  select, array con mapfile, SECONDS var, log function"
+echo -e "	\\033[38;5;195maChoose mp3 to transcript \033[38;5;9mj option \033[38;5;195mto \\033[38;5;212m❤️️  just r✨e⭐a💫d 🚀\\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+source Logtime.fu
+source Continua.fu
+
+function readiread() {
+   select toread in $(echo -e "${lostrans[@]}")
+   do
+	  tranfile="${transdir}/${toread}"
+	  break
+  done
+}
+
+gvallwaysfile=/Users/violetagonzalezgarcia/gitclones/bin/geush/auxiliares/vallways/geus-vallways.aux
+source ${gvallwaysfile} 
+source ${funcsdir}/echonthego.fu
+source ${funcsdir}/editvlcrc.fu
+source ${funcsdir}/erabaki_hizkuntza.fu
+
+gvonthegofile=/Users/violetagonzalezgarcia/gitclones/bin/geush/auxiliares/vonthego/geus-vonthego.aux
+source ${gvonthegofile}  
+
+erabaki_hizkuntza
+
+##DIRECTORIES
+##FILES
+#tlogfile=${transdir}/.transcripciones.log # no se usa
+tralogfile="${transdir}/.${clipname%mp3}.transcript.log"
+#VARIABLES
+justread=false
+
+### MAIN
+while getopts ":ehj" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		j)
+			justread=true
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+
+echo -e "\033[38;5;11m⭐\\033[38;5;208m MECA \\033[38;5;118mMECA \\033[38;5;208mMECA \\033[38;5;11m ⭐"     
+
+mapfile -t losclips < <( find ${clipsdir} -type f -exec basename {} \; | sort -r )
+mapfile -t lostrans < <( find ${transdir} -type f -name *transcript -exec basename {} \; | sort -r )
+
+COLUMNS=12
+SECONDS=0
+if [[ ${justread} = true ]]; then
+	readiread
+else
+	select totran in $(echo -e "${losclips[@]}" ) #$(find ${clipsdir} -type f -exec basename {} \; ) 
+	do
+		tranfile="${transdir}/${totran%.mp3}.transcript"
+		[[ -e ${tranfile} ]] && echo -e "THIS IS A CONTINUATION!!" && continua
+		break
+	done
+fi
+[[ ${justread} = false ]] && echo -e "`date +%D` ⭐ ${totran} ⌛ `date +%H:%M:%S`→ " >> ${tranfile}  
+vim ${tranfile}  
+[[ ${justread} = false ]] && dtime=$(logtime ${SECONDS}) && commentwork "${tranfile}" "${dtime}" "${tralogfile}"
+# ✨

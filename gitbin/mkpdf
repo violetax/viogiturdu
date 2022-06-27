@@ -1,0 +1,174 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\e[38;5;118m${cuseco} → \e[38;5;11mvio-node:\e[38;5;118mselect cp bash node"
+	echo -e "\e[38;5;118m⇒  \e[38;5;195mselect html y css para copiarlos a workonmom, y lanzar el makePDF.js desde allí
+	⭐\e[38;5;190mPENDING \e[38;5;195m mejorar ⭐ ❤️️ 
+	👉 \e[38;5;9moption r \e[38;5;190mrapidito → \e[38;5;118mmkpdf htmlfile cssfile ⭐    
+\t\\e[38;5;43mFor example:
+\t\\e[38;5;228m${cuseco} -$o\e[0m"
+}
+
+## SOURCES 
+##VARS-FILES
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+source Echocolors.fu # black red green yellow blue magenta cyan white pink orange whiteguay @+N
+##DIRECTORIES 
+##FILES
+#VARIABLES
+rapidito=false
+
+while getopts ":ehr" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		r)
+			rapidito=true
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+#FUNCTIONS
+function echoSourceval() {
+	dsourcevalsfile=$3
+	[[ ! -f ${dsourcevalsfile} ]] && touch ${dsourcevalsfile}
+	sourceval=$(echo "var $1 = \"$2\"")
+	sed -i "1i\
+${sourceval} 
+" ${dsourcevalsfile}  
+}
+
+function meat() {
+	cd $1
+	/home/violeta/bin/workondom/makepdf/may2022-edited-makepdf-mejorable.sh -a
+}
+
+function okunow() {
+	clear
+	dpdf=$(ls -t ${cwom}/pdf | head -1)
+	echo -e " 🐒 \e[38;5;190mokular \e[38;5;228m ${dpdf}\e[38;5;190m??"
+	if asksure; then
+		okular ${cwom}/pdf/${dpdf} 2>/dev/null &
+	fi	
+}
+#FILES
+
+#DIRS
+cwom=/home/violeta/bin/workondom/makepdf
+htmldir=/home/violeta/bin/workondom/makepdf/html
+cssdir=/home/violeta/bin/workondom/makepdf/css
+svn="${cwom}/sourceVarnames" 
+curdir=$(pwd)
+
+### MAIN
+[[ -e ${svn} ]] && rm ${svn}   
+
+#if [[ $(ls *css 2>/dev/null && echo $?) != 0 ]]
+#then
+#	echo "standard css 👍???" 
+#	if asksure; then
+#		css="" && echo "var csssource = \"styles.css\"" >> ${svn}
+#	else
+#		read -p "css → " dcss
+#		mv ${dcss} ${cssdir}  
+#		echoSourceval "csssource" "${dcss}" ${svn}
+#	fi
+#else
+#	css="css"
+#fi
+
+if [[ ${rapidito} = true ]]
+then
+	html=$1
+	css=$2
+	htmlname=$(basename ${html}) 
+	cssname=$(basename ${css}) 
+	echo -e "\e[38;5;9m 🚨 BOTÓN ROJO ACTIVADO!!!!! \e[38;5;190mSe reescriben \e[38;5;208m${htmlname} \e[38;5;190my \e[38;5;208m${cssname} 🔥🔥🔥 \e[38;5;218m(después de \e[38;5;195mokular\e[38;5;218m)"  
+	
+	echo "var htmlsource = \"${htmlname}\"" >> "${svn}"
+	echo "var csssource = \"${cssname}\"" >> "${svn}"
+
+#	echoSourceval "htmlsource" ${htmlname} "${svn}"
+#  	echoSourceval "csssource" "${cssname}" "${svn}"	
+	cat ${svn} 
+   continua	
+	meat ${cwom}  
+	okunow ${cwom} 
+	cd ${curdir}  
+	cp ${html} ${cwom}/html
+    cp ${css} ${cwom}/css 	
+	exit
+fi
+   
+
+[[ ! $(ls *css 2>/dev/null) ]] && echo 'standard css 👍!!!' && css="" && echoSourceval "csssource" "${dcss}" "${svn}" || css="css"
+
+[[ -f ${svn} ]] && echo -e "\e[38;5;228m${svn} → \e[38;5;15m$(cat ${svn}) \e[0m" 
+for what in "html" "${css}"
+do
+	echo -e "\e[38;5;190m ${what} \e[38;5;195m→ \e[0m"     
+	touch Exit
+	select dsource in $(ls *${what} Exit)
+	do
+		[[ $dsource == "Exit" ]] && exit
+		ddir="${cwom}/${what}"
+		if [[ -e ${ddir}/${dsource} ]]; then
+			echo -e "🚨 ${dsource} ya existe!!!!!!!!!\n\e[38;5;195m» \e[38;5;190m Select a way ahead??"
+			if asksure; then
+				COLUMNS=12 
+				select whattodo in "Change name old" "Change name of this one" "Replace old" "Abort!!!"
+				do
+					oldone=$(find ${ddir} -name ${dsource} -exec basename {} \;)
+					case $REPLY in
+						1)
+							read -p "new name for old → " nname
+							mv ${ddir}/${oldone} ${ddir}/${nname} 
+							;;
+						2)
+							read -p "new name for new one → " nname
+							dsource=${nname}
+							;;	
+						3)
+							cp ${dsource} ${ddir}/${oldone} && echo -e "\e[38;5;228m★ replaced (not removed)!!"
+							;;
+						4)
+							echo -e "bye-bye!!! 🤗 "
+							exit
+							;;
+					esac
+					echo -e "\e[38;5;15m" 
+					break
+				done
+#			find ${ddir} -name ${dsource}
+			fi
+		else
+			cp ${dsource} ${ddir}  
+		fi
+		#echo "var ${what}source = \"${ddir}/${dsource}\"" >> ${svn}
+		echo "var ${what}source = \"${dsource}\"" >> ${svn}
+		#[[ $(echo ${what}) =~ "html" ]] && echo "var pdfsource = \"${cwom}/pdf/${what%html}pdf\"" >> ${svn}
+		[[ $(echo ${what}) =~ "html" ]] && echo "var pdfsource = \"${dsource%html}pdf\"" >> ${svn}
+		break
+	done
+done
+echo -e "module.exports = {htmlsource,csssource,pdfsource}" >> ${svn}
+rm Exit
+
+meat ${cwom} 
+okunow ${cwom} 
+

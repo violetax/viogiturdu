@@ -1,0 +1,53 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\e[38;5;118m${cuseco}	⇒ 	\e[38;5;11mtype:\e[38;5;118mvio-basadmin → nmap, /etc/hosts, casipi"
+echo -e "	\e[38;5;195m Automate ssh to casipi \e[38;5;11m⭐ \e[38;5;195m git work!! \e[38;5;11m⭐\e[38;5;195m \e[38;5;212m❤️️ \n\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+
+## SOURCES 
+##VARS-FILES 
+##FUNCTIONS 
+source Opte.fu
+source Asksure.fu
+function Dpiips() {
+	echo -e "\e[38;5;159mwhat are the casipi ips by nmap and in /etc/hosts??" 
+	nmpiip=$(sudo nmap -sL --traceroute 192.168.1.* | grep casipi | grep -o "\([0-9]\|\.\)*")
+	ehpiip=$(grep casipi /etc/hosts | awk '{print $1}' | grep -v "\#")
+}
+
+##DIRECTORIES 
+##FILES 
+#VARIABLES 
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN 
+
+Dpiips
+
+if [[ "${ehpiip}" != "${nmpiip}" ]]; then
+  echo -e "\e[38;5;9mNope \\e[38;5;118m	⇒ 	"  
+  sudo sed -ne "s/${ehpiip}/${nmpiip}/p" /etc/hosts 2>/dev/null
+fi
+[[ ${nmpiip} != "" ]] && echo -e "\e[38;5;11m→ nmpiip	⇒ 	${nmpiip}  " || echo -e "\e[38;5;11m→ nmpiip   ⇒  \e[38;5;9mCLOSED!! \e[0m"  
+echo -e "\e[38;5;11m→ ehpiip	⇒ 	${ehpiip}  " 
+[[ "${nmpiip}" != "${ehpiip}" ]] && echo -e "\e[38;5;123mnmap gets other than in /etc/host\e[38;5;127m!!! \e[0m" && exit || echo -e "\e[38;5;194migualis!!!"  

@@ -1,0 +1,67 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\e[38;5;118m${cuseco}	→ \e[38;5;11mtype:\e[38;5;118mvio-basadmin: show important alias"
+	echo -e "\e[38;5;118m ⇒  \e[38;5;195mShow los alias tan importantes como bin scripts \e[38;5;11m⭐\e[38;5;195m y recordar usarlos \e[38;5;11m⭐\e[38;5;195m \e[38;5;212m❤️️ \n\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+
+## SOURCES 'S
+##VARS-FILES 'B
+##FUNCTIONS 'F
+source Opte.fu
+source Asksure.fu
+##DIRECTORIES 'D
+##FILES 'I
+#VARIABLES 'V
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; # 'O
+?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN 'M
+
+echo -e "\e[38;5;11malias \e[38;5;195mporta\e[38;5;11m=\e[38;5;212m'\e[38;5;118mport22-abiertoono casipi\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195mspi\e[38;5;11m=\e[38;5;212m'\e[38;5;118mssh pi@casipi\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195msgi\e[38;5;11m=\e[38;5;212m'\e[38;5;118mssh git@casita\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195mgpp\e[38;5;11m=\e[38;5;212m'\e[38;5;118mgit push pigit\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195msema\e[38;5;11m=\e[38;5;212m'\e[38;5;118mselect maes in \`find /home/violeta/.clogs/maestros -type f -name *oclog\`; do vim \$maes; break ; done\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195mwog\e[38;5;11m=\e[38;5;212m'\e[38;5;118msed -ne '25,32p' /home/violeta/.bashrc | grep true || echo none\e[38;5;212m'"
+echo -e "\e[38;5;11malias \e[38;5;195mclosclo\e[38;5;11m=\e[38;5;212m'\e[38;5;118m\e[38;5;118msed -i '25,32s/true/false/' /home/violeta/.bashrc && bash\e[38;5;212m'"
+cat << EOF
+CUIDADO CON LA BACKSLASHES!!!!
+alias gethtmlscifoco='sed -ne "/^*/s?[^/]*/\([^)]*\))?\1?p" _index.md'
+alias clog='cd /home/violeta/.clogs'
+alias clom='cd /home/violeta/.clogs/maestros'
+alias clomanov='clomanow -v'
+alias sosot='cd /home/violeta/.vim/sourceText/sot_instalacionfotovoltaica'
+alias maesyn='sudo vim /usr/share/vim/vim82/syntax/maestro.vim'
+alias clomano='clomanow -o'
+alias gres='shao grep "[^-]type"'
+alias nmtr='sudo nmap -sL --traceroute 192.168.0.*'
+alias ipad='ip addr | grep -o "inet 192.*24"'
+alias cip='ip addr | grep -E "192\.168\.0\..." && nmap -sn 192.168.0.* | grep -E "192\.168\.0\..."'
+alias hoss='sudo vim /etc/hosts'
+alias cfca='cd /home/violeta/.filecollections_vio/awkfiles'
+alias cas='cd /home/violeta/notes/awksed_notes'
+#alias va="vim /home/violeta/.filecollections_vio/awkfiles/v.awk.sh"
+#alias rva='/home/violeta/.filecollections_vio/awkfiles/v.awk.sh'
+alias vaw='vim /home/violeta/notes/greatbash_notes/awk.gbexes'
+#alias awf="open_an_awk_file"
+alias aw="./awk_*awk"
+rsolaaune_solasol_energias_renovableirte_safyboxsmoa_idom_energias_renovablesngeniesol_energias_renovablesrnsolar_ingenierosinit_solar

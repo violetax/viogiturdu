@@ -1,0 +1,71 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\e[38;5;118m${cuseco}	⇒ 	\\e[38;5;11mtype:\\e[38;5;118mvio-basadmin → select,  alis file, set working hugo site"
+echo -e "	\\e[38;5;195m Cd a cualquier \\e[38;5;11m⭐\\e[38;5;195m proyecto hugado \\e[38;5;11m⭐\\e[38;5;195m \n\\e[38;5;118m${cuseco} \\e[38;5;195m lista los \\e[38;5;11mproyectos hugados \\e[38;5;195m cuyos \\e[38;5;208m cd alis \\e[38;5;195m y \\e[38;5;208mpaths \\e[38;5;195m se guardan en un file auxiliar, que se edita con la \\e[38;5;9mg\\e[38;5;195m opt \\e[38;5;118mPENDING! \\e[38;5;212m❤️️ \\n\\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+##DIRECTORIES
+##FILES
+alisfile="/home/violeta/.bash_aliases"
+dhugositesfile="/home/violeta/bin/auxiliaries/aproespecific/hugo.sites"
+#lista de proyectos hugados file...
+#VARIABLES
+
+### MAIN
+while getopts ":ehs" o; do
+	#TODO cdv-getops con g...
+    # gralGetops #
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+            whatis
+            exit
+            ;;
+		s)
+			vim ${dhugositesfile} 
+		    exit
+			;;	
+        \?)
+            echo -e "Nein nein nein option → ${o}"
+            exit
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+#TODO mejorar todo
+
+if [[ $1 ]]
+then
+    site=$1
+else
+    #cdv -s
+    echo "Choose SITE"
+	dsites=()
+	for i in $(cut -f 1 ${dhugositesfile}) #$(awk "{print}" ${dhugositesfile})
+	do
+		dsites+="${i} " 
+	done	
+	select site in $(echo "${dsites[@]}") #$(echo -e "\e[38;5;195m ${dsites[0]} \\e[38;5;118m${dsites[1]}" )
+	do
+		echo -e "\e[38;5;118m ${site} " 
+		cp ${alisfile} /home/violeta/.bups_vio${alisfile#/home/violeta/}
+		#todir=$(cat ${alisfile} | grep -I ${site}= | awk -F= '{print $2}' |  tr -d "'" | awk '{print $2}' | awk '{gsub("~","/home/violeta"); print}')
+		sed -i "s/^alias bb=.*/alias bb=${site}/" ${alisfile}
+		sed -i "/SEDSECTION/,/ENDOF-SEDSECTION/s/='[^;]*;/='${site} ;/" ${alisfile}
+		break
+	done
+fi
+	
+#TODO cd ${todirPATH}

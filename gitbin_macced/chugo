@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function whatis() {
+	echo -e "\033[38;5;118mtype:\033[38;5;118mhugo: \033[38;5;9mOPEN TO EDIT TO USE THIS!!\033[38;5;195m while read lista de archivos → sed"
+	echo -e "\t👉\t\033[38;5;43mchugo \033[38;5;228m\$1==\033[38;5;11mmd/html_files \033[38;5;228m\$2==\033[38;5;11mfile-path-relative-to-cifo/content\033[0m"
+}
+# ♥
+source Asksure.fu
+source Opte.fu
+while getopts ":eh" o; do 
+	case "${o}" in 
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+# ♥
+
+#DIRS
+codir="/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica"
+[[ $2 ]] && subdir=$2
+workdir=${codir}/${subdir}   
+#FILES
+listaordenada=$1
+#VARS
+# LOOP para editar CONTENT/sub-dirs/SUB-SUB-DIR ⇒  
+let count=0
+#let pre=-1
+
+if [[ ${listaordenada} ]]; then
+	while read -r fileinlista 
+	do
+		let count=${count}+10
+	#   let pre=${pre}+1
+	#	titlelimpio=$(sed -ne "/title: /p" ${fileinlista} | sed -ne "s/title: //p" | tr '"' '')
+		sed -i '' "s/draft: true/weight: ${count}/"  ${fileinlista}
+	#	sed -i '' "s/pre =.*/pre = \"<b>${pre}. <\/b>\"/" ${l}/_index.md
+	done < ${listaordenada}  
+else
+	whatis
+	exit
+fi

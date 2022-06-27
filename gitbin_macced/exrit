@@ -1,0 +1,144 @@
+#!/bin/bash
+
+source Asksure.fu
+source Continua.fu
+source Opte.fu
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco} → \033[38;5;11mtype:\033[38;5;118mvio bas-admin: w echo ab exrc"
+	echo -e "\033[38;5;118m⇒  \033[38;5;195mAfter :'<,'>w >> marcadas.tmp.aux ⇒  run ${cuseco} to exrc-ab them 
+	⭐\033[38;5;195m ALGOESTRELLADO ⭐ ❤️️ 
+\t\\033[38;5;43mFor example:
+\t\\033[38;5;228m${cuseco} -$o\033[0m"
+}
+
+#VARIABLES
+onlyhtml=false
+
+while getopts ":ehw" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		w)
+			onlyhtml=true
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+#FUNCTIONS
+function whichex() {
+	arr=(${@: 2})
+	for exf in $(echo "${arr[@]}")
+	do
+		[[ "$1" =~ ${exf} ]] && exrcbase=${exrcbasedir}/${exf} && break
+	done
+}
+
+#DIRECTORIES
+curdir=$(pwd)
+exrcbasedir="/Users/violetagonzalezgarcia/gitclones/bin/auxiliaries/aproespecific"
+
+#FILES 
+marcux="marcadas.tmp.aux"
+curexrc="${curdir}/.exrc"
+[[ ! -e ${curexrc} ]] && touch ${curexrc}   
+exrcbasefile=("exrit.exrcbase.aux" "exrit.exrcbase.html.aux") 
+
+if [[ ${onlyhtml} = true ]]; then
+	exrcbase="${exrcbasedir}/exrit.exrcbase.html.aux" 	
+else
+	exrcbase="${exrcbasedir}/exrit.exrcbase.aux"
+fi
+
+
+established=$(wc -l ${exrcbase} | awk '{print $1}') # established es el número de líneas del copia base en cbia
+extendingexrc="${curdir}/.exrc${established}" # extending es una copia al curdir del copia base en cbia, con el established número de líneas as index
+cp ${exrcbase} ${extendingexrc}  
+tmpexrc1="${curdir}/exrc1.tmp.aux"
+
+
+function getnews() {
+	while read -r eliner
+	do
+		if [[ ! ${eliner} =~ "Eatchar" ]]; then
+			eline=$(echo ${eliner} | grep -o "ab [^ ]* ")
+			if [[ ! $(grep "${eline}" $2 ) ]]; then 
+				echo "${eliner}"
+			fi
+		fi
+	done < $1
+}
+
+if [[ -f "${marcux}" ]]; then
+	sed -i '' "s/^[[:space:]]*//" ${marcux}  
+	if [[ $(wc -l ${marcux} | awk '{print $1}') > 0 ]]; then # si hay file marcadas, se las añadimos al extending
+		if [[ ${onlyhtml} = false ]]; then # hari inicial, cuando había que marcarlas para color them
+			#:'<,'>w ${marcux}
+			echo -e "\033[38;5;195mworking with \033[38;5;208m${marcux}\033[38;5;195m \033[0m "   
+			grep -o '|[^|]*|' ${marcux} | sort | uniq >> abedas.tmp.aux
+			grep -o "\[[^\[]*\]" ${marcux} | sort | uniq >> abedas.tmp.aux
+			sed -e 's/ //g' abedas.tmp.aux > toab.tmp.aux
+			for abr in $(cat toab.tmp.aux)
+			do
+				[[ ${abr} =~ "|" ]] &&  ab=$(echo ${abr} | tr -d '|' ) 
+				[[ ${abr} =~ "[" ]] &&  ab=$(echo ${abr} | tr -d ']' | tr -d '[' ) 
+				for i in $(grep -n "${ab}" toab.tmp.aux | awk -F: '{print $1}') 
+				do
+					linu=${i} 
+				done	
+				abed=$(sed -ne "${linu}p" abedas.tmp.aux) 
+				[[ ${abed} =~ "|" ]] &&  abed=$(echo ${abed} | sed -e 's/|/\\|/g' )
+				echo -e "ab ${ab} ${abed}" >> ${extendingexrc}  
+			done	
+		elif [[ ${onlyhtml} = true ]]; then # nuevo hari: con la option w, hay que manual edit cada "marcada" (porque no está marcada) talque se asigna la ab, y lugar de insert text
+			for linu in $(seq $(wc -l ${marcux} | awk '{print $1}')) 
+			do
+				htmlab=$(sed -ne "${linu}p" ${marcux})
+				echo -ne "${htmlab} → "
+				read dab
+				read -p "where the placeholder? (contando desde atrás; none para al final) → " lefts
+				let placeholder=${lefts}+4
+				correctpos=""
+				for e in $(seq ${placeholder})
+				do
+					correctpos="${correctpos}$(echo -n '<left>')"
+				done
+				correctpos="<{}>${correctpos}<C-R>=Eatchar('\s')<CR>"
+				if [[ ${lefts} = "" ]]; then #then placeholder=4
+					echo -e "ab ${dab} ${htmlab}${correctpos}" >> ${extendingexrc}
+				else
+					pre=$(( ${#htmlab} - ${lefts} )) 
+					pos=$(( ${#htmlab} - ${lefts} ))
+			#		str="${htmlab}"
+			#		echo -e "${htmlab:0:${pre}}"
+			#		echo -e "${htmlab:${pos}}"
+			#		exit
+					partepre="${htmlab:0:${pre}}"
+					partepos="${htmlab:${pos}}"
+					echo -e "ab ${dab} ${partepre}${partepos}${correctpos}" >> ${extendingexrc}
+				fi
+			done 
+		fi
+	else
+		echo -e "\033[38;5;208m${marcux}\033[38;5;195m vacío → just \033[38;5;118mmerge \033[38;5;195mcurrent .exrc && base \033[0m "
+	fi
+else
+	echo -e "\033[38;5;9mNOT! \033[38;5;195mworking with \033[38;5;208m${marcux}\033[38;5;195m → just \033[38;5;118mmerge \033[38;5;195mcurrent .exrc && base \033[0m "   
+fi
+sort -u ${curexrc} ${extendingexrc} > ${tmpexrc1}  
+mv ${tmpexrc1} ${curexrc}     
+
+getnews ${curexrc} ${exrcbase}  
+rm *tmp.aux ${extendingexrc} 2>/dev/null 

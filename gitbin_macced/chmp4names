@@ -1,0 +1,125 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\033[38;5;118m${cuseco} ⇒  \033[38;5;11mtype:\033[38;5;118mvio-helpers ⇒  pwd select read echo mv tree chmod sed "
+	echo -e "\033[38;5;195m para ir downloading files a un manually built tree \033[38;5;11m⭐ e ir cambiándoles el nombre \033[38;5;11m⭐ \033[38;5;195m cómodamente 💕  \033[38;5;212m PEO HAY UN ÓRDEN 👉  ❤️️ 
+	\033[38;5;195m1⚡ \t👉\t\033[38;5;228m${cuseco} \033[38;5;11m-o \033[38;5;14m# \033[38;5;9m para empezar \033[38;5;14m select dir en el tree; no cdea after run, pero lo echoa para cp/paste it \033[0m
+	\033[38;5;195m2⚡ \t👉\t\033[38;5;228mcd \${dir} && ${cuseco} \033[38;5;11m \033[38;5;14m#para run from here; \033[38;5;9mATT \033[38;5;14msave downloads en el appropiate directory  
+	\033[38;5;195m3⚡ \t👉\t\033[38;5;228m${cuseco} \033[38;5;11m-o \033[38;5;14m# \033[38;5;9mpara acabar \033[38;5;14mcat chmodedx aux file, y si todo \033[38;5;118m√ \033[38;5;14m, run it    
+	\033[38;5;195m4⚡ \t👉\t\033[38;5;228m${cuseco} \033[38;5;11m-b \033[38;5;14m# set el \${basedir}\033[38;5;11m!!! \033[0m 
+	"
+	
+}
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+
+## SET DIRECTORIES
+# BASEDIR TO RETURN, AND WHERE TO SAVE AUXF CON COMMANDS
+basedir=/Users/violetagonzalezgarcia/gitclones/pruebas/emptypru
+# CURDIR → donde se guardan los mp4s; XXX este tengo que manually hacerlo coincidir en la window de save file from brave 
+curdir=$(pwd)
+# DIR es el dir from a select, que lo inicializo con valor de curdir 
+	# tiene sentido en la o option, que termina echandome el cd al ${dir} selected 
+dir=${curdir}  
+# BOOLEAN para si quiero esperar a que el file downlode; lo cambié por store mv commands en zuxf, y sedar auxf para rm crdownload; no hace ya falta
+#waiting=true
+# EL FILE DONDE STORO LOS MV COMMANDS CON EL NEW NAME
+auxf=${basedir}/aux 
+
+
+# FUNCTION TO ECHO AND SET VARIABLE OF: LAST SAVED FILE (it might be a crdownload)
+function getandshowit() {
+	echo -e "\033[38;5;195m →  $(ls -t | head -1) \033[38;5;118m "
+	yts5="$(echo $(ls -t | head -1))"
+}
+
+# FUNCTION QUE HACE EL TRABAJO OBJETIVO ⇒  crea el auxf con los mv commands de cada file que dowlodo, named con el name que meto
+	# se le meten ${dir}  y ${curdir} en las posiciones ${1} y ${2}   
+	# primero: tree ${dir}  ; 
+	# then echo last saved file and var it ; 
+	# then read NEW NAME
+	# then store mv command en auxf, cat it, tree and continua
+function meat() {
+	clear
+	dir=$1
+	curdir=$2
+	tree ${dir}  
+
+	echo -ne "\033[38;5;228mfirst... ⇒  "  
+	getandshowit
+	
+#	while [ "${waiting}" = true ]
+#	do
+#		echo -ne "⌛"
+#		[[ $(echo ${yts5}) =~ .*crdownload ]] && waiting=true && getandshowit || waiting=false
+#	done
+#	getandshowit
+	nfiles=$(ls | wc -l)
+	read -p "new name → " nname
+	nname=$(echo ${nname} | tr " " "-")
+	echo "mv \"${dir}/${yts5}\" ${dir}/${nfiles}.${nname}.mp4" >> ${auxf}  
+	echo -e "\033[38;5;195m" 	
+	cat ${auxf} 
+   continua	
+	tree ${dir} 
+}	
+
+while getopts ":ehoba" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+#			echo -e "PENDING whatis!! 🔥 "
+			exit
+			;;
+		b)
+			echo -e "\033[38;5;118m⚡ basedir → \033[38;5;195m ${basedir} \033[38;5;118m "
+			read -p "🔥 new base dir (admite .) → " basedir
+			[[ ${basedir} == "." ]] && basedir=$(pwd) 
+			cd ${basedir} 
+			tree ${basedir}  
+			sed -i '' "s?^basedir=.*?basedir=${basedir}?" $0
+			exit
+			;;
+		a)
+			chmod +x ${auxf} 
+			sed -i '' "s/.crdownload//" ${auxf}
+			cat ${auxf}  | grep --color "yt5s"
+		    continua	
+			${auxf} 
+			tree
+			rm -i ${auxf}  
+		    exit
+			;;	
+		o)
+			COLUMNS=12 
+			select d in $(find . -type d -exec basename {} \; | grep -v "UF\|^\." | sort -n )
+			do
+				dir="${curdir}/*/${d}"
+				cd ${dir} #; eyeon -b -d ${dir}  
+				meat ${dir} ${curdir}   
+			#	REPLY=""
+			   break   
+			done
+			echo -e "cd ${dir} "
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+#MAIN
+echo -e "\033[38;5;118m🔥  basedir → \033[38;5;195m ${basedir} "
+continua
+
+meat ${dir} ${curdir}

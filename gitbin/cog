@@ -1,0 +1,118 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\e[38;5;118m${cuseco} ⇒  \e[38;5;11mtype:\e[38;5;118mvio-helper ⇒  grep *txt while read echocolors"
+	echo -e "\e[38;5;195m grep con colors \e[38;5;11m⭐ diferencia el file, \e[38;5;11m⭐ \e[38;5;195m el término greped \e[38;5;212m y las líneas de texto ❤️️ 
+	\e[38;5;118m★ \e[38;5;9moption a \e[38;5;195m le mete A arg al grep   
+	\e[38;5;118m★ \e[38;5;9moption b \e[38;5;195m le mete B arg al grep   
+	\e[38;5;118m★ \e[38;5;9moption c \e[38;5;195m le mete C arg al grep   
+	\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m
+	🚨 \e[38;5;190mPENDING \e[38;5;195mevitar blank lines"  
+	return 25
+}
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+source Echocolors.fu # black red green yellow blue magenta cyan white pink orange whiteguay @+N
+
+#VARS
+grepots=""
+dash=false
+modcol=true
+singlefile=false
+#FILES
+resfile="resfile.tmp"
+
+while getopts ":ehsa:b:c:" o; do
+	lines=$OPTARG
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis 2>/dev/null
+			[[ "$?" == 25  ]] || echo -e "PENDING whatis!! 🔥 "
+			exit
+			;;
+		a)
+			grepots="-A ${lines} " 
+			;;
+		b)
+			grepots="-B ${lines} " 
+			;;
+		c)
+			dash=true
+			grepots="-C ${lines} " 
+			;;
+		s)
+			singlefile=true
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+togrep=$@
+
+cuantostxt=($(ls *txt 2>/dev/null))
+
+grep -in ${grepots} "${togrep}" *txt >| ${resfile}  
+#resli="resfile.tmp"
+sed -i "/^--$/d" ${resfile}  
+let countwhen=0
+#let counterforecho=0
+while read -r resli
+do
+	if [[ ${#cuantostxt[@]} > 1 ]]
+	then
+	#	let counterforecho=${counterforecho}+1
+		dfile=$(echo "${resli}" | grep -o "b.*txt:")
+		dashfile=$(echo "${resli}" | grep -o "b.*txt-")
+		dtext=$(echo "${resli}" | sed -ne "s/b.*txt.//p")
+	else
+		singlefile=true 
+		dfile="${cuantostxt[0]}"
+		dashfile=${dfile} 
+		dtext=$(echo "${resli}" ) 
+	fi	
+
+	
+	if [[ ${dash} = true ]]; then
+		let countwhen=${countwhen}+1 
+		let when=1+${lines}*2
+		[[ ${countwhen} == 1 ]] && [[ ${singlefile} = false ]] && orange ${dashfile}
+		[[ $((${countwhen}%${when})) == 0 ]] && let countwhen=${countwhen}-${when}  
+    else
+	   [[ ${singlefile} = false ]] && orange ${dfile} 
+	fi
+	
+	if [[ "$(echo ${resli})" =~ "$(echo ${togrep})" ]]
+		then
+			linu=$(echo "${dtext}" | sed -ne "s/\(^[0-9]\+.\).*/\1/p")
+			pre1=$(echo "${dtext}" | sed -ne "s/${linu}\(.*\)${togrep}.*/\1/p")
+			pre2=$(echo "${dtext}" | sed -ne "s/.*${togrep}\(.*\)/\1/p")
+			[[ ${linu} =~ [0-9] ]] && pinkN ${linu} 
+			[[ ${pre1} =~ [Aa-Zz] ]] && green2N ${pre1} 
+			cyanN $@
+			[[ ${pre2} =~ [Aa-Zz] ]] && green2 ${pre2}  
+		else
+			linu=$(echo "${dtext}" | sed -ne "s/\(^[0-9]\+.\).*/\1/p")
+			nolinu=$(echo "${dtext}" | sed -ne "s/${linu}\(.*\)/\1/p")
+			[[ ${linu} =~ [0-9] ]] && pinkN ${linu} 
+			[[ ${dtext} =~ [Aa-Zz] ]] && green2N ${nolinu}  
+		fi
+		echo
+done < ${resfile}  
+
+rm ${resfile} 
+
+#files=$(echo "${res}" | grep -o "b.*txt:")
+#texts=$(echo "${res}" | sed -ne "s/b.*txt://p")
+#cyan ${files}  
+#green2 ${texts}  

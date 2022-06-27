@@ -1,0 +1,70 @@
+:insert
+graph %%% {
+
+%%%
+
+}
+/*
+ab rel [shape=doublecircle] // RELATION
+di ->  
+abma [shape=tripleoctagon] MAIN ABS 
+abse [shape=doubleoctagon] SEC ABS
+abte [shape=octagon] TER ABS
+coma [shape=box3d] MAIN CONCRETE
+cose [shape=doublecircle] SEC CONCRETE
+cote [shape=rectangle] TER CONCRETE 
+codb [shape=cylinder]  DB...
+att [shape=invtriangle] ATTRIBUTE
+cond [shape=diamond] CONDITION
+wtext [shape=note] TEXTO
+
+
+
+
+
+
+
+
+
+
+∙ abstract main thing: octagon
+∙ abstract secondary thing: oval
+∙ attribute: doublecircle
+∙ condition: diamond
+∙ concrete main general thing: box
+∙ database AS concrete main typical thing: cylinder
+∙ text: note
+
+graph G {
+run -- intr;
+intr -- runbl;
+}
+
+graph G {
+n0 -- n1 -- n2 -- n3 -- n0;
+}
+
+graph G {
+n0 -- n1 [len=2, style=bold];
+n1 -- n2 -- n3 -- n0;
+}
+
+graph G {
+n0 [ pos= "0,0!" ];
+n1 [ pos= "2,0" ];
+n2 [ pos= "2,2!" ];
+n0 -- n1 -- n2 -- n3 -- n0;
+}
+
+graph G {
+node [shape=box,style=filled];
+{node [width=.3,height=.3,shape=octagon,style=filled,color=skyblue] A1 A2 A3}
+A -- A1 [label="l #6"];
+...
+{edge [style=invis]; A1 -- A2 -- A3}
+edge [len=3]; / * applies to all following edges * /
+A -- B [label="l #1"]; A -- C [label="l #2"]; A -- D [label="l #3"];
+...
+}
+*/
+.

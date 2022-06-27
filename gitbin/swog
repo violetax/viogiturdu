@@ -1,0 +1,47 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\\e[38;5;118m${cuseco}	→ \\e[38;5;11mtype:\\e[38;5;118mvio-basadmin: clog, ..., vim"
+	echo -e "\\e[38;5;118m ⇒  \\\e[38;5;195mget curretn oclog and vim it  \\e[38;5;11m⭐\\e[38;5;195mALGOESTRELLADO \\e[38;5;11m⭐\\e[38;5;195m \\e[38;5;212m❤️️ \\n\\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+
+## SOURCES 'S
+##VARS-FILES 'B
+##FUNCTIONS 'F
+source Opte.fu
+source Asksure.fu
+##DIRECTORIES 'D
+clogdir=/home/violeta/.clogs/maestros
+##FILES 'I
+#VARIABLES 'V
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; # 'O
+?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN 'M
+senal=$(sed -ne '25,32p' /home/violeta/.bashrc | grep true)
+if [[ ${senal} != "" ]]; then
+	dclog=$(echo ${senal} | sed -ne "s/=true/.oclog/p")
+else
+	echo -e "no signal!!!!!!!!!"
+	exit
+fi
+
+vim ${clogdir}/${dclog}  

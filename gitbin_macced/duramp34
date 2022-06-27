@@ -1,0 +1,84 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco} → \033[38;5;11mmp34:\033[38;5;118mffmpeg piped grep cup sed"
+	echo -e "\033[38;5;118m⇒  \033[38;5;195mfor cada mp34 en este directorio → show name and duration
+	⭐\033[38;5;9m opt s \033[38;5;195mpara single ⭐ ❤️️ 
+\t\\033[38;5;43mFor example:
+\t\\033[38;5;228m${cuseco} \033[38;5;218munmp34\033[0m"
+}
+
+## SOURCES 
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+##DIRECTORIES 
+##FILES
+#VARIABLES
+mp34=$1
+
+while getopts ":ehs" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		s) 
+	#		ffmpeg -i $2 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,// 
+			mp34=$2
+			echo -n "🚀 "
+			printf '%s' ${mp34}
+			timetotal=$(ffmpeg -i ${mp34}  2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//)
+			echo -e "\033[38;5;195m 👉  ${timetotal}"
+			hh=$(echo ${timetotal} |  awk -F: '{print $1}' )
+			h=$(bc <<< "scale=2;${hh}*3600")
+			mm=$(echo ${timetotal} |  awk -F: '{print $2}' )
+			m=$(bc <<< "scale=2;${mm}*60")	
+			s=$(echo ${timetotal} |  awk -F: '{print $3}'  )
+			t=$(bc <<< "scale=2;${h}+${m}+${s}")
+			timem=$(bc <<< "scale=2;${t}/60")
+			time12=$(bc <<< "scale=2;${timem}/2") 
+			#1.75"))
+			echo -e "\t\033[38;5;11m★ \033[38;5;228mhalved → \033[38;5;195m ${time12} minutos \033[0m" 
+			exit
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+### MAIN
+padlimit=60
+pad=$(printf '%*s' "$padlimit")
+pad=${pad// /_}
+padlength=40
+let to=0
+for mp34 in $(ls *mp4)
+do
+	echo -n "🚀 "
+	printf '%s' ${mp34}
+	printf '%*.*s' 0 $((padlength - ${#mp34} )) "$pad"
+	timetotal=$(ffmpeg -i ${mp34}  2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//)
+	echo -e "${timetotal}"
+    mm=$(echo ${timetotal} |  awk -F: '{print $2}' )
+	m=$(bc <<< "scale=2;${mm}*60")	
+	s=$(echo ${timetotal} |  awk -F: '{print $3}'  )
+	t=$(bc <<< "scale=2;${m}+${s}")
+	timem=$(bc <<< "scale=2;${t}/60")
+	time12=$(bc <<< "scale=2;${timem}/2") 
+	#1.75"))
+	echo -e "\t\033[38;5;11m★ \033[38;5;228mhalved → \033[38;5;195m ${time12} minutos \033[0m" 
+	to=$(bc <<< "scale=2;${time12}+${to}")
+done
+
+to=$(printf "%.0f" ${to})   
+echo -e "\033[38;5;14mx2 👉\033[38;5;195m ${to} minutos \033[38;5;14mtotalix total at twice the speed"

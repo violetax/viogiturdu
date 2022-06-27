@@ -1,0 +1,14 @@
+:insert
+<?xml version="1.0"?>
+<cliente>
+    <name>%%%</name>
+    <pueblo>%%%</pueblo>
+    <telefono>%%%</telefono>
+    <email>%%%</email>
+    <cp>%%%</cp>
+    <direccion>%%%</direccion>
+    <notas>%%%</notas>
+    <status>%%%</status>
+</cliente>
+
+.

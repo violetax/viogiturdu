@@ -1,0 +1,94 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mvio-basadmin → select, vim , mv, cp, vlc ; improved para git → out vers-his, .git"
+echo -e "	\\033[38;5;195m SELECT \\033[38;5;11mfile as default \\033[38;5;195m from \\033[38;5;11mhere as default \\033[38;5;195m by name \\033[38;5;11mas default \\033[38;5;11m⭐\\033[38;5;195m and \\033[38;5;9mVIM\\033[38;5;195m it \\033[38;5;11m(as default)\\033[38;5;195m !!! \\033[38;5;11m⭐\\033[38;5;195m \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} TERM* \\n \\033[38;5;195m ... per sigo investgando cómo hacerlo bien, para excluya paths sin grep -v...
+💥 \033[38;5;118m recuerda meter findterm\033[38;5;11m!!!\033[38;5;118m este select funciona dándole un parámetro name que acote el find\033[38;5;11m!! \033[38;5;118m:( NO vale el \033[38;5;11m'\033[38;5;118m*\033[38;5;11m' a secas 💥💥💥💥💥 \033[0m"
+}
+
+## SOURCES 
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+
+function getwhereto() {
+	echo -e "💫\033[38;5;118m where or what to \\033[38;5;11m?????"	
+	read where 
+}
+
+##DIRECTORIES
+ddir=$(pwd)
+##FILES 
+#VARIABLES
+
+what=vim
+whereto=false
+findterm=$1
+cleanit=false
+
+while getopts ":ehwvo" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		w)
+			echo -e "\033[38;5;14m" 
+			findterm=$2 #NOTA ⇒  con la expansión * al lanzar selvv, si findterm es $2, solo me coje el segundo, y no toda la expansión
+			[[ ${@: -1} =~ "-" ]] && what=$(echo ${@: -1} | sed -ne 's/-//p') && set -- "${@:1:$(($#-1))}" || read -p " whaaaatt?? → " what
+			;;
+		v)	echo -e "\033[38;5;14m" 
+			findterm=$2 #NOTA ⇒  con la expansión * al lanzar selvv, si findterm es $2, solo me coje el segundo, y no toda la expansión
+			what=vlc
+			cleanit=true
+			;;
+		o)
+			findterm=$2
+			read -p "default cat or enter command → " what
+			[[ ${what} == "" ]] && what=cat 
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+### MAIN
+if [[ ${@: -1} == "m" || ${@: -1} == "c" ]]; then
+	whereto=true
+	findopts=${@: -2}
+	echo -e "findopts → ${findopts} " 
+	[[ ${@: -1} == "m" ]] && what="mv" || what="cp -r"
+else
+	# ATT si tengo problemas pueden estar aquí, porque ... no sé por qué pero en algún edit el caso es que dejé la var inutilizable as findopts=${@: }; la retoco a ojo a findopts=${@}, pero queda este aviso si un día algo no va... como esperaría que fuera
+	findopts=$(echo ${@} | grep -v "/Users/violetagonzalezgarcia/gitclones/selvv") # AQUÍ está la expansión de un findterm con regex: findterm*
+#	echo "yeah yeah AQUÍ está la expansión findterm*"
+fi
+
+if [[ ${findopts} == "" ]]
+then
+	findopts=" ${ddir} -type f -name "
+fi
+
+COLUMNS=12
+findhere=$(find ${findopts} ${findterm} | grep -v "version-history" | grep -v "\.git")
+select f in ${findhere}  
+#select f in $(find ${findopts} ${findterm} | grep -v "version-history" | grep -v "\.git") 
+do
+	if [[ ${whereto} == true ]]; then
+		getwhereto
+		${what} ${f} ${where} 
+    else
+	 	${what} ${f}  
+	fi  
+	[[ ${cleanit} = true ]] && clear && REPLY=""
+#	break
+done

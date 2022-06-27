@@ -1,0 +1,62 @@
+#!/bin/bash
+
+source Opte.fu
+if [[ $1 =~ "-" ]]; then
+   termino="${@: -1}"
+else
+	termino="${@}"
+fi
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mvio-basadmin → find, grep, options"
+echo -e " "  
+			echo -e "\033[38;5;11m this comes from past debian!!!"  
+			echo -e "\033[38;5;43mUsage: \\033[38;5;118mgrepin [hno:n:]\$termino"
+			echo -e "\033[38;5;195m Grep \$termino in directory\nCon \\033[38;5;9m-m \\033[38;5;195m grepa también en subdirs\nCon \\033[38;5;9m-o grepopt\\033[38;5;195m grepa con la grepopt dada\nCon \\033[38;5;9m-n grepopt\\033[38;5;195m grepa con la grepopt dada también en subdirs"
+			echo -e "\t\t👉\t[38;5;212mgrepin clog"
+		}
+
+while getopts ":eho:mn:" o; do 
+	case "${o}" in 
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+		o)
+			# echo -e "opt e %%%"
+			# echo -e "opt f %%%"
+			# echo -e "opt i %%%"
+			# echo -e "opt v %%%"
+			# echo -e "opt w %%%"
+			# echo -e "opt x %%%"
+			# echo -e "opt c %%%"
+			# echo -e "opt L %%%"
+			# echo -e "opt l %%%"
+			# echo -e "opt o %%%"
+			# echo -e "opt q %%%"
+			# echo -e "opt s %%%"
+			find [^.]* -maxdepth 0 -type f -exec grep -IH -${OPTARG} "${termino}"  {} \;
+			exit
+			;;
+		m)
+			echo -e "\033[38;5;118m" 
+			find [^.]* -type f -exec grep -IHi "${termino}" {} \;
+			exit
+			;;
+		n) find [^.]* -type f -exec grep -IH -${OPT} "${termino}"  {} \;     
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+find [^.]* -maxdepth 0 -type f  -exec grep -IH "${termino}" {} \;

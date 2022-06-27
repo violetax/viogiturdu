@@ -1,0 +1,72 @@
+#!/bin/bash
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco} → \033[38;5;11mtype:\033[38;5;118mvio-bas-learn: awk cd select vim awk"
+	echo -e "\033[38;5;118m⇒  \033[38;5;195mSelect awk file en \033[38;5;11mdefault → awkdir \033[38;5;195m or if \033[38;5;9mc option \033[38;5;195mcurrent directory.
+	Y \033[38;5;118mcommand → \$1 → \033[38;5;208mvim, cat, rm \033[38;5;195m or if \033[38;5;9mt option \033[38;5;208m mv, cp \033[38;5;195mto either \$2 or read newname. 
+	⭐\033[38;5;11mdefault \$1 \033[38;5;118m C A T ⭐ ❤️️ 
+\t\\033[38;5;43mFor example:
+\t\\033[38;5;228m${cuseco} -$o\033[0m"
+}
+
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+
+function getname() {
+	[[ ${trasiego} = true ]] && read -p " New name → " newname
+	whereto=${destdir}/${newname}
+}
+##DIRECTORIES  
+curdir=$(pwd)
+awkdir=/Users/violetagonzalezgarcia/gitclones/.filecollections_vio/awkfiles
+##FILES
+#VARIABLES
+trasiego=false
+collect=false
+dcommand=("vim" "mv" "cp" "rm" "awk")
+
+while getopts  ":ehtc" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		t)
+			trasiego=true
+			;;
+		c)
+			collect=true
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1)) 
+
+### MAIN
+for c in $(echo "${dcommand[@]}")
+do
+	[[ ${c} == $1 ]] && dcommand=${c} && break  || dcommand="cat"
+done
+[[ ${dcommand} == "awk" ]] && dcommand="awk -f " && whereto=$2
+
+if [[ ${collect} = false ]]; then 
+	wherein=${awkdir} && destdir=${curdir}
+else
+	wherein=${curdir} && destdir=${awkdir} 
+fi
+
+select dawkf in $(find ${wherein} -type f -name "*awk" -exec basename {} \; )
+do
+	[[ $2 ]] && newname=$2 || getname
+	awkf=${wherein}/${dawkf}   
+	[[ ${dcommand} == "cat" ]] && ${dcommand} ${awkf} || ${dcommand} ${awkf} ${whereto}
+	break
+done	

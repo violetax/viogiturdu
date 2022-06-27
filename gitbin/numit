@@ -1,0 +1,83 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\e[38;5;118m${cuseco}	⇒ 	\\e[38;5;11mtype:\\e[38;5;118mpdftk → pdflatex, nppdf, edit pdf con numbered pages"
+echo -e "	\\e[38;5;195m Number a pdf \\e[38;5;11m⭐\\e[38;5;195m a +\\e[38;5;11m⭐\\e[38;5;195m \\e[38;5;212m❤️️ \\n\\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+}
+function mydeb(){
+	cat ${texfile}; cd ..; rm -rf ${workdir}; exit
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+
+function concatit() {
+echo -e "\e[38;5;195m Concatenate \\e[38;5;118m${parr}\\e[38;5;195m ???"
+if asksure
+then
+	dpdf=concatenated_pdfs.pdf 
+	pdftk ${parr} output ${dpdf} 
+fi
+}
+
+##DIRECTORIES
+workdir=tmpdir
+##FILES
+#dpdf=
+#dpdfned=
+texfile=scr_numbers.tex
+platexfile=${texfile%tex}pdf  
+#VARIABLES
+parr=()
+nop=''
+
+### MAIN
+while getopts ":eh" o; do
+    gralGetops
+done
+shift $((OPTIND-1))
+
+
+[[ ! -d ${workdir} ]] && mkdir ${workdir} 
+
+if [[ ! $1 ]] 
+then
+	echo -e "\e[38;5;195m "
+	for p in `ls *pdf`
+	do
+		parr+="$p "
+	done
+	concatit
+elif [[ $# > 1 ]]
+then
+	parr=$@
+	concatit
+else
+	dpdf=$1
+fi
+
+
+nop=$(nppdf ${dpdf})
+
+cp ${dpdf} ${workdir} 
+cd ${workdir}  
+echo -e "\documentclass[12pt,a4paper]{article}
+\usepackage{multido}
+\usepackage[hmargin=.8cm,vmargin=1.5cm,nohead,nofoot]{geometry}
+\\\begin{document}
+\multido{}{${nop}}{\\\vphantom{x}\\\newpage}
+\\\end{document}" > ${texfile}  
+
+pdflatex ${texfile} 1>/dev/null
+dpdfned=${dpdf%\.pdf}_numbered.pdf
+pdftk ${dpdf} multistamp ${platexfile} output ${dpdfned}  
+
+mv ${dpdfned} ..
+cd ..
+rm -rf ${workdir}
+echo -e "\t \e[38;5;11m ⭐\\e[38;5;118mD\\e[38;5;11m✨\\e[38;5;118mNG\e[0m \\e[38;5;11m⭐ \\e[38;5;118m→ \\e[38;5;195m ${nop}\n`ls ${dpdfned}`"    

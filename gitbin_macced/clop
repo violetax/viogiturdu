@@ -1,0 +1,111 @@
+#!/bin/bash
+clear
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\\033[38;5;118m${cuseco}	→ \\033[38;5;11mtype:\\033[38;5;118mvio bas-admin: select, vim, clog, opt → sed p"
+	echo -e "\\033[38;5;118m ⇒  \\\033[38;5;195mclog like a pro → hay un clog maestro por cada step del día horariado, y\\033[38;5;212m ${cuseco} \\033[38;5;195mpuede → 
+	\033[38;5;11m» \\033[38;5;195mselect and vim \\033[38;5;11mel \\033[38;5;208mprimer log.maestro \\033[38;5;11mdel día ⭐
+	\033[38;5;11m» en los entrehorariados \\033[38;5;195mvim el \\033[38;5;208mcurrent log.maestro \\033[38;5;195mpara edit ANTES de cerrarlo, editado con el trabajo reciente, para POSTERIOR VISTAZO antes del trabajo del nuevo día
+		\033[38;5;11m» \\033[38;5;195my seguido select and vim \\033[38;5;208mnuevo log.maestro
+	\033[38;5;11m» \\033[38;5;195mY para un \\033[38;5;14m\`vistazo\` \\033[38;5;195men cualquier momento, clop con \\033[38;5;14mave \\033[38;5;195mcomo argumento 
+		\033[38;5;11m» \\033[38;5;14mselect and sed-print el último día
+\033[38;5;43m\t👉\t\033[38;5;118m${cuseco} ave\033[0m
+		⭐ \033[38;5;11mMUY IMPORTANTE → seguir el procedimiento: 
+   		\033[38;5;118m ⇒  para activar la \\033[38;5;11mSEÑAL\\033[38;5;118m, una boolean de .bashrc que se flipa con sed en either un script or un alias 
+	\033[38;5;11m» \\033[38;5;118mclop \\033[38;5;195mpara empezar: al empezar el día selecciono un log.maestro, y le hecho un vistazo; la \\033[38;5;11mseñal \\033[38;5;118mseta al select as \\033[38;5;218mtrue \\033[38;5;11m→ oclog.persistent.history \\033[38;5;118m√√√ 
+	\033[38;5;11m» \\033[38;5;118mclop \\033[38;5;195ma lo largo del día: nuevas selecciones, un vistazo, y reseteo de \\033[38;5;11mseñal, oclog.persistent.history 
+	\033[38;5;11m» \\033[38;5;118mclosclo \\033[38;5;195mpara terminar el día; la \\033[38;5;11mseñal \\033[38;5;118mseta TODAS a \\033[38;5;218mfalse   
+✨\033[38;5;195m Y usar \\033[38;5;43m\`wog\`\\033[38;5;195mpara confirmar\\033[38;5;212m ❤️️ \\n"
+}
+
+## SOURCES 
+##VARS-FILES 
+##FUNCTIONS 
+source Opte.fu
+source Asksure.fu
+source Continua.fu
+
+function vlating() {
+	# $1 = bashrc → senal → currentclop=true
+	currentclop=$(echo $1 | awk -F= '{print $1}')
+	functionpendig="f.*${currentclop}Pending"
+    tolinu=$(grep -n ${functionpendig} /Users/violetagonzalezgarcia/gitclones/bin/lat)
+	linu=$(echo ${tolinu} | awk -F: '{print $1}')
+#	echo -e "VLATING → 
+#	\033[38;5;228m currentclop → \t\033[38;5;218m ${currentclop} 
+#	\033[38;5;228m tolinu → \t\t\033[38;5;218m${tolinu}
+#	\033[38;5;228m linu → \t\t\033[38;5;218m${linu}
+#	\033[38;5;228m functionpendig → ${functionpendig}   
+#	"  
+	vim +${linu} $2
+}	
+
+
+##DIRECTORIES 
+clodir=/Users/violetagonzalezgarcia/gitclones/.clogs/maestros
+#prodir=/Users/violetagonzalezgarcia/gitclones/PROYECTO
+##FILES
+bashrc=/Users/violetagonzalezgarcia/gitclones/.bashrc
+latfile=/Users/violetagonzalezgarcia/gitclones/bin/lat
+#clogmaestro=""
+#VARIABLES
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN 
+#si la senal está vacia, estamos empezando el día  y pasamos al select directamente para ⇒  clomanov primero, then to PROYECTO and lat
+senal=$(sed -ne "/^geus=/,/^extendother=/p" /Users/violetagonzalezgarcia/gitclones/.bashrc | grep true)
+
+#si hay algo: run clomanow (resumen de lo hecho); then vlating con la senal que haya (apuntar lo que se quedó pendiente, y lo nuevo que hay que hacer), y then lat con la nueva senal
+if [[ ${senal} != "" ]]; then
+	clomanow -v
+	vlating ${senal} ${latfile}  
+fi
+
+clear
+select malo in $(find ${clodir} -type f -name "*maestro" -exec basename {} \; | sed -ne "s/.log.maestro//p" ) 
+do
+	clomaestro=${clodir}/${malo}.log.maestro 
+	if [[ $1 == "ave" ]]; then
+		for i in $(grep -n "^<abre-log" ${clomaestro} )
+		do
+			tolinu=$i
+		done
+		linu=$(echo ${tolinu} | awk -F: '{print $1}')
+		sed -ne "${linu},$ p" ${clomaestro} 
+	else
+		vim +$ ${clomaestro} 
+		if [[ ${malo} != "extend-other" ]]; then
+			echo -e "\033[38;5;118mView extend maestro as well??🤯??"
+		   if asksure; then
+			   echo -e "\033[38;5;195m" 
+			   vim ${clodir}/extend-other.log.maestro	   
+		   fi
+		fi
+	fi
+	break
+done	
+
+clogclop=$([[ ${malo} =~ "-" ]] && echo ${malo} | sed -ne "s/-//gp" || echo ${malo} )
+vim -c "call ClopClog(\"${clogclop}\")" -c "wq" ${bashrc}
+
+cd /Users/violetagonzalezgarcia/gitclones/PROYECTO
+bash /Users/violetagonzalezgarcia/gitclones/bin/lat "${clogclop}"
+bash

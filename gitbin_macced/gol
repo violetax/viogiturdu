@@ -1,0 +1,94 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mgeus → vim ⇒  select, array con mapfile, SECONDS var, log function"
+echo -e "	\\033[38;5;195m Select an audio from geus playsists.., and [38;5;118mdo[38;5;11m ⭐[38;5;118mit!!!  \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m
+    "
+}
+
+## SOURCES
+# FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu # snippet → sops
+source Logtime.fu 
+
+gvallwaysfile=/Users/violetagonzalezgarcia/gitclones/bin/geush/auxiliares/vallways/geus-vallways.aux
+source ${gvallwaysfile} 
+source ${funcsdir}/echonthego.fu
+source ${funcsdir}/editvlcrc.fu
+source ${funcsdir}/erabaki_hizkuntza.fu
+
+gvonthegofile=/Users/violetagonzalezgarcia/gitclones/bin/geush/auxiliares/vonthego/geus-vonthego.aux
+source ${gvonthegofile}  
+
+erabaki_hizkuntza
+getvlcspeed
+
+
+##DIRECTORIES
+##FILES
+tlogfile=${transdir}/.transcripciones.log
+tralogfile="${transdir}/${clipname%.mp3}.transcript"
+#refdatefile...
+#VARIABLES
+myspeed=false
+
+### MAIN
+while getopts ":ehs" o; do 
+	    case "${o}" in
+        e)
+            opte
+            exit
+            ;;
+        h)
+            #whatis
+            echo -e "PENDING whatis!! 🔥 "
+            exit
+            ;;
+        s)
+            editvlcspeed 
+            ;;
+        \?)
+            echo "invalid option: -$OPTARG"
+            exit
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+#si no hay option s, aplicar la funct editspeed con $1==1
+#[[ ${myspeed} = false ]] && editspeed 1
+
+mapfile -t playlists < <( find ${playldir}/pl-listen* -exec basename {} \; | sort -r ) # -type f -newer ${refdatefile}... 
+
+echo -e "\033[38;5;212m❤️️ ❤️️ ❤️️ ❤️️ \\033[38;5;11m❤️️ \\033[38;5;212m Happy \\033[38;5;195m L\\033[38;5;11m ⭐ \\033[38;5;195m I\\033[38;5;11m ⭐ \\033[38;5;195m S\\033[38;5;11m ⭐ \\033[38;5;195m T\\033[38;5;11m ⭐ \\033[38;5;195m E\\033[38;5;11m ⭐ \\033[38;5;195m N\\033[38;5;11m ⭐ \\033[38;5;195m I\\033[38;5;11m ⭐ \\033[38;5;195m N\\033[38;5;11m ⭐ \\033[38;5;195m G !!!!!!!!!!!!"
+#echo -e "\033[38;5;212m❤️️ ❤️️ ❤️️ ❤️️ ❤️️ \\033[38;5;9m❤️️ ❤️️ ❤️️ \\033[38;5;212m❤️️ ❤️️ ❤️️ ❤️️ ❤️️ \\033[38;5;190m❤️️ ❤️️ ❤️️ !!!!!!!!\\033[38;5;9m❤️️ \\033[38;5;212m❤️️ ❤️️ ❤️️ ❤️️ \\033[38;5;11m❤️️  \\033[38;5;190m"    
+
+echo -e ""
+#echo -e "\033[38;5;9m⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐SUPER \\033[38;5;118mPENDING \\033[38;5;11m!!!!!!!!\\033[38;5;14m→ \\033[38;5;195m EL LOG DE LISTENIG ES OTRO, DONDE SE COPIA EL DICT TRANSCRIPT, Y LO EDITO, PARA EN EL FUTURO \\033[38;5;118m cmp dict.log lis.log \\033[38;5;195m Y REGISTRAR LO QUE CAMBIO!!!!!! "        
+
+COLUMNS=12
+echo -e "\033[38;5;195m 👉 velocity 🚨🚦🚨🚦🚨🚦🚨🚦🚨🚦🚨🚦 👉 👉 👉 👉  \033[38;5;118m${vlcspeed} \033[38;5;195m "
+select golaudio in $(echo -e "${playlists[@]}")
+do
+	echo -e "\033[38;5;14m"  
+	tail -1 ${playldir}/${golaudio} 
+    if asksure; then
+		SECONDS=0
+		nvlc ${playldir}/${golaudio} 
+		#FILE=${playldir}/${transcript} 
+
+		logtime ${SECONDS}
+		dtime=$(logtime ${SECONDS})
+		#echo -e "TLOG ${golaudio} ✨ $(date +%D) → ${dtime}" > ${tlogfile}
+		#echo -e "\033[38;5;195m TLOG \\033[38;5;14m»\\033[38;5;118m${golaudio} \\033[38;5;11m✨ \\033[38;5;195m $(date +%D) → ${dtime}" 
+		#echo -e "\033[38;5;212mWrite a comment????"
+		commentwork "${golaudio}" "${dtime}" "${tlogfile}"
+		[[ -e "${tralogfile}" ]] && echo "💫 See typed transcript @ ${tralogfile} ⭐ ⭐ ⭐ " >> ${tlogfile}
+	fi
+	echo -e "\033[38;5;11m💫 \\033[38;5;118mAGUR!!!!!!!!!!!!!!!!\\033[38;5;11m 💫"
+	exit
+done
+# ✨ 

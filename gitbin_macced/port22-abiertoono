@@ -1,0 +1,64 @@
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+
+source Opte.fu
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\033[38;5;11mtype:\033[38;5;118mvio-basadmin → telnet, info puerto ssh, puerto 22"
+echo -e " \033[38;5;195m Copied from →  \033[38;5;14m https://gist.github.com/skamithi/7034952
+	\033[38;5;208m # Script for checking if SSH port is open
+	\033[38;5;208m # Only checks that port is open. Not that actually SSH connection can occur
+	\033[38;5;118mGets one param \$1 \033[38;5;11m→ \033[38;5;195m hostname or IP"   
+}
+while getopts ":eh" o; do 
+	case "${o}" in 
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+
+counter=0
+result="ssh disabled"
+
+if [ -z "$1" ]
+then
+  echo "hostname argument required. Example ssh_port_checker.sh 10.1.1.1"
+  exit
+fi
+
+while [ $counter -lt 6 ]; do
+  echo "check ssh port connection for $1"
+  telnet_output=`echo quit | telnet $1 22 2>/dev/null | grep Connected`
+  case "$telnet_output" in
+    *Connected*)
+      let counter=12
+      result="ssh enabled"
+      ;;
+  esac
+  let counter=counter+3
+  echo "sleep for 3 seconds"
+  sleep 3
+done
+
+echo "$result on $1"
+
+if [[ "$result" =~ "enabled" ]]
+then
+  exit 0
+fi
+
+exit -1

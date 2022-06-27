@@ -1,0 +1,49 @@
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+
+function sedsec() {
+	echo -e "\e[38;5;195m\t👉 sedsec it \e[38;5;118m???? \e[38;5;208m 
+		s/^ \+url: //
+		g/^$/d
+	"
+}
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\e[38;5;118m${cuseco} ⇒  \e[38;5;11mtype:\e[38;5;118mvio-basadmin ⇒  vim awk function parses json"
+	echo -e "\e[38;5;195m hasta 100!!! echoes el value de la property named ⇒  \$2 en el \e[38;5;218mjson file → \e[38;5;118m\$1  \e[38;5;11m⭐ <ref>https://askubuntu.com/questions/1167287/parse-json-with-default-bash-only</ref> \e[38;5;11m⭐ \e[38;5;195m no lo entiendo del todo aún \e[38;5;212m PENDING!!  ❤️️ → entendeti y mejorati ⇒  de momento, manuedit 🤗 
+	\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+	sedsec
+}
+while getopts ":eh" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+		;;
+		h)
+			whatis
+			exit
+		;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+		;;
+	esac
+done
+shift $((OPTIND-1))
+
+
+jfile=$1
+#'/home/violeta/.config/BraveSoftware/Brave-Browser/Profile 3/Bookmarks'
+function jsonValue() {
+KEY=$1
+num=$2
+awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1); getline;print}}}' | tr -d '"' 
+#awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
+}
+cat "${jfile}" | jsonValue $2 100
+sedsec

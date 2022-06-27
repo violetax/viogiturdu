@@ -1,0 +1,103 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mhugo ⇒  hugo new file en \$codir or \$co; var'ed main dirs del current cdv"
+ echo -e "	\\033[38;5;195m Lo que de momento creo que hace:
+	\033[38;5;208m ∙ desde cualquier lugar permite escoger un subdir en content .
+   	∙  pero si ya está en content → entonces escoges un subdir dentro de donde estés .
+		∙  \033[38;5;212m y crea un file ahí .
+   	∙\033[38;5;208mCon la opción d → \\033[38;5;212mcrea un dir .
+	  	∙\033[38;5;208mtambién en o bien content, o donde estés dentro de content 
+   
+	\033[38;5;11m⭐\\033[38;5;195m ALGOESTRELLADO \\033[38;5;11m⭐\\033[38;5;195m \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+##DIRECTORIES
+currentd=$(pwd)
+dbb=$(grep ' bb=' /Users/violetagonzalezgarcia/gitclones/.bash_aliases | awk -F= '{print $2}')
+pbasedir=$(grep "${dbb}=" /Users/violetagonzalezgarcia/gitclones/.bash_aliases | awk -F ' ' '{print $3}')
+basedir=$(echo $pbasedir | tr "'" " " | xargs)
+#echo -e "\033[38;5;11mbasedir → ${basedir}hola "; exit
+car="${basedir}/archetypes"
+co="${basedir}/content"
+cdat="${basedir}/data"
+cla="${basedir}/layouts"
+cres="${basedir}/resources"
+csta="${basedir}/static"
+cth="${basedir}/themes/hugo-theme-learn"
+
+##FILES
+#VARIABLES
+createdir=false
+hucom="hugo new"
+
+
+### MAIN
+while getopts ":ehd" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		d)
+			createdir=true 
+			;;
+		\?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+cd ${basedir} 
+if [[ ! $1 ]]; then
+	echo -e "⭐\033[38;5;118m WHERE first (then what)???"   
+	if [[ "${currentd}" =~ "content"   ]]; then
+		basewhere=${currentd} 
+	else
+		basewhere="${co} -maxdepth 1"  			
+	fi
+#echo -e "\033[38;5;11mbasewhere → ${basewhere} "; exit
+	select sd in $(find ${basewhere} -type d | awk -F "/" '{print $NF}')
+	do
+		subdi=${sd} 
+		break
+    done	
+ 	
+	echo -e "✨ \033[38;5;195m WHAT????"
+	if [[ ${createdir} == true ]]; then
+		echo -e "\033[38;5;11m DIR → \\033[38;5;195m " 
+		read ndir
+		mkdir ${co}/${subdi}/${ndir}  
+		subdi="${co}/${subdi}/${ndir}"
+	fi
+
+	echo -e "\033[38;5;11m FILE → \\033[38;5;195m " 
+	read dnewfile
+	hnewco="${subdi}/${dnewfile}"  
+else
+	hnewco=$1
+fi
+
+if [[ ! ${hnewco} ]]; then
+   ${hucom} ${hnewco} 
+   sleep 2
+   #HEREEEEEEEEEEEEEEEEEEEEEE
+   find ${co} -name $(basename ${hnewco} )  -exec vim +$ {} \;
+else
+	echo -e "\033[38;5;118m ${hnewco}  already exists!!!!!!!!!!!!!!"
+fi	
+
+cd ${currentd}   

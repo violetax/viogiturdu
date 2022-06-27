@@ -1,0 +1,385 @@
+#!/bin/bash
+function whatis() { #whatis
+	cuseco=$(basename $0)
+    echo -e "\\033[38;5;118m${cuseco}	→ \\033[38;5;11mtype:\\033[38;5;118mvio-bas admin: alias, ln, bin, PROYECTO"
+	echo -e "\\033[38;5;118m ⇒  labour.today\\\033[38;5;195mun s.sh del día \\033[38;5;14msolo funciona within PROYECTO \\033[38;5;11m⭐\\033[38;5;195mtipo fastcd, pero para run la script del day (o del momento) \\033[38;5;11m⭐\\033[38;5;195m \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source Continua.fu
+
+function waiting() {
+	echo -e "\033[38;5;195m" 
+	while read -r -p "$@ " -n 1 -s answer
+	do
+		if [[ ${answer} == [gG] ]]; then
+			break
+		fi
+	done
+	clomanow -v
+}
+function espiask() {
+	echo -e "espidi??"
+	if asksure; then
+		espidi
+	fi
+}
+function latsayshello() { #latsayshello
+	# 1/ check if in PROYECTO and get lat if there is one
+	if [[ ${curdir} =~ "PROYECTO" ]]; then  
+		symfs=$(find -L -xtype l)
+		haylat=$(echo ${symfs} | sed -ne "s/.*\(lat\).*/\1/p")
+		#haylat=$(echo ${symfs} | grep -wo lat )
+	else
+		echo -e "🔥\033[38;5;11mnot in \033[38;5;118mP⭐R⭐O⭐Y⭐E⭐C⭐T⭐O \033[38;5;212mbaby 💥 💥 💥 "
+		exit
+	fi	
+
+	# 2/ if in PROYECTO, either show or link lat
+	if [[ ${haylat} == ""  ]]; then
+		echo -e "\033[38;5;9mNO haylat \033[38;5;118m → pues se linka "
+		echo -e "\033[38;5;195mlat script: ${latf}" 	
+		ln -s ${latf} 
+	else
+		echo -e "\033[38;5;14mSÍ haylat → \033[38;5;195m${haylat[0]} "
+		echo -e "\033[38;5;228m⭐ \`$1\` \033[38;5;212msays ⚡HELLO⚡⚡ \033[38;5;195m:D!!!!!!!!!!💕"  
+	fi
+	echo
+}
+
+####PENDING FUNCTIONS
+#echo -e "⭐ \033[38;5;118mESTO ES LO QUE \\033[38;5;9mNO SE HIZO \033[0m "  
+#cat << EOF 
+#EOF
+#echo -e "⭐ \033[38;5;118m PLUS ⇒  \033[0m  "
+#cat << EOF 
+#EOF
+#echo
+#echo -e "⭐ \033[38;5;118mESTO ES LO QUE \\033[38;5;208mEXTRA HAY QUE HACER → "
+
+function docspersonalesyrepasosPending() { #docspersonalesyrepasosHERE
+clear
+   	 echo -e " ⭐ \033[38;5;43m seguir leyendo los emails e informes\033[38;5;195mYiiiiiiiipaaaaaaaaaa   "
+	 echo -e " ⭐ y la \033[38;5;9m🔥 RENTA 🔥 \\033[38;5;195m la rentaaaaaa!!!!"
+	 echo -e "🚨 🚨🚨🚨🚨🚨🚨 \033[38;5;228mENCONTRADA PÓLIZA IMPORTANTE → 30 páginas ⇒
+	 \033[38;5;195m 👉 hotmail/pias-axa-4212_015783767_000000_POLIZA.pdf " 
+	 echo -e "\033[38;5;118m PENDING \033[38;5;228mleerla, pero quiero \033[38;5;9m🔥  AVANZAR 🔥 \033[38;5;228m"  
+}
+
+function extendotherPending() { #extendotherHERE
+clear
+	echo -e "\033[38;5;195m 💥 SOUND SYSTEM 💥💥💥💥💥 \\033[38;5;9m ME FALTA 😣 💥 💥💥💥 \\033[38;5;195m"   
+	echo -e "🌋 option → reinstall 🧟 DEBIAN 👻"
+}
+
+function geusPending() { #geusHERE
+clear
+	echo -e "🐒 \033[38;5;195m  T🔥R🔥A🔥B🔥A🔥J🔥A🔥R ⭐  💥  no irme a las musarañas, SÍIIII???!!!!\033[38;5;14m!!!!!!!!!!!!!!!1 🐒🚀 "
+} 
+
+function informaticaPending() {  #informaticaHERE
+clear
+	echo
+	echo -e "\033[38;5;195m 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 YO SÍ PUEDO!!!! YO SÍ PUEDO!!! 💥 💥💥💥 \\033[38;5;195m"   
+}
+
+function mecanoPending() { #mecanoHERE
+clear
+	echo -e "\033[38;5;195m 🔥🔥🔥🔥🔥 OBJETIVO VERANO 2022 → 21 de junio 🔥🔥🔥🔥🔥🔥🔥\\033[38;5;9m 💥💥💥💥 60 wpm 💥💥💥💥💥  \\033[38;5;195m"   
+	echo -e "\033[38;5;14m 01-04-22/17:04 → 37 wpm 😣 " #:r!date +\%d-\%m-\%y/\%H:\%m
+	echo -e "\033[38;5;14m 04-04-22/11:04 → 35 wpm 😣 😣 BAT"
+	echo -e "\033[38;5;14m 05-04-22/09:23 → 31, 32 wpm 😣 😣 😣 BI"
+	echo -e "\033[38;5;14m 06-04-22/07:04 → 35, 37 wpm 😣 BAT"
+	echo -e "\033[38;5;14m 11-04-22/08:04 → 33 wpm 😣 40 wpm 😐 BAT "
+	echo -e "\033[38;5;14m 12-04-22/06:08 → 35, 38 😣 😣 BAT "
+
+}
+
+function programmingPending() { #programmingHERE
+clear
+	echo -e "\033[38;5;195m 💥 💥💥💥 MOOOOO🤗OOOOORE 🔥 🔥🔥🔥🔥🔥 PYTON 🐍🐍🐍🐍🐍🐍"
+}	
+
+function sportPending() {  #sportHERE
+clear
+	echo
+}
+
+function ystpelectricityPending() { #ystpelectricityHERE
+clear
+#	echo -e "\033[38;5;195mPreguntarle a CHEMA por la clase 1 de simbología; y por el taller de mecanismos"
+	echo -e "\033[38;5;118m 💕⚡⚡ ⚡ ⚡ ⚡  🚀TERMINAR CON 💪💪💪 ⚡ELECTRÓNICA⚡⚡⚡⚡  ⚡ ⚡ " 
+
+#workreadydir=/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/evaluaciones/1_electricidadbasica/texthings
+#	cd ${workreadydir} 
+#	echo -e "\033[38;5;118meins ⚡ ⇒  c (plo)" 
+#   🚨 \033[38;5;195mevaluación 🚨 
+#   🐒 💬 D✨NG "
+##   waiting "evaluación 🚨 "
+#   echo -e "\n\033[38;5;118mneues eins ⚡ ⇒  
+#   \033[38;5;195mconcertar praktikis!!!\033[38;5;9m☭ 🚁\033[38;5;228m⚔ 
+#   🐒 💬 D✨NG "
+##   waiting "praktikis 🚁"
+#   echo -e "\n\033[38;5;118mreneues eins ⚡ ⇒  
+#   🌞 \033[38;5;195mpreparar las clases imprescindibles de FV 
+#   🐒 💬 D✨NG "
+##   waiting "clases imprescindibles 🌞"
+#cd /Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/static/videos
+#echo -e "\n\033[38;5;208m★ Colado: \033[38;5;195msimbología →  \033[38;5;118m rs
+#    🐒 💬 D✨NG "
+##waiting "simbología ⌛ "
+#   echo -e "\n\033[38;5;118mLetzte ⚡ ⇒
+#   🚀 \033[38;5;195mpreparar siguiente tema" 
+#   cd /Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos
+#   echo -e "⭐ rs \033[38;5;228m!!!!!!!!!!!!!!!!!!!!!!" 
+#   echo -e "\033[38;5;14m Bajar todos los vídeos → \033[38;5;195m 
+#	   brave && https://yt5s.com/en74"
+#	   echo -e "\033[38;5;14m Ajustar con el material en papel; repasar lo que cuentan en el índice;
+#	 \033[38;5;9m⇒  \033[38;5;218mY PREPARARME UN \033[38;5;195mSUPER⭐LAT \033[38;5;218mde la hostia para la semana que viene.
+#Complementado con horarios en \033[38;5;195mPAPEL \033[38;5;218m y notas en la \033[38;5;195mAGENDA \033[38;5;218mpara \033[38;5;9mFINIK⚡TAR \033[38;5;218mel tema \033[38;5;118m LA SEMANA QUE VIENE\033[38;5;11m!!!!! 
+#\033[38;5;195mY la \033[38;5;118msemana del 4 de abril \033[38;5;195m→ 
+#	👉 \033[38;5;228m primero PRÁCTIK🔥S, y luego:
+#	🚨 👉 🚨 👉 \033[38;5;118mEXÁM💥N 🔥🔥🔥🔥🔥🔥🔥🔥🔥 "     
+#   waiting "siguiente 🚀"
+}
+
+#### LAT FUNCTIONS
+
+function docspersonalesyrepasosLAT() { #docspersonalesyrepasosHERE
+clear
+	workdir=/Users/violetagonzalezgarcia/gitclones/PROYECTO/basicos/finanzas/baa-fondos-AXA/bajotododeHOTyGMA
+	cd ${workdir} 
+	echo -e "💫 \033[38;5;11mS P L I T window & U S E » \033[38;5;118mcprofi \033[38;5;195m to C D eta L O G 💥💥💥💥💥 "   
+	echo -e "\033[38;5;208m go to \033[38;5;195mbaa-fondos-AXA ... ⇒  then \033[38;5;43msplit window → 
+	\033[38;5;218m→ cd bajotododeHOTyGMA & log \033[38;5;208mbatan\033[38;5;14m!!!⭐
+	\033[38;5;218m→ cd bajotododeHOTyGMA/hotmail & rs \033[38;5;208mbestean\033[38;5;14m!!!⭐   "
+	tree hotmail
+	echo -e "\033[38;5;228m ⭐ 🚨 rellenar y enviar los docus de AVANZA"
+}
+
+function extendotherLAT() { #extendotherHERE
+clear
+	echo -e ""
+}
+
+
+function geusLAT() { #geusHERE
+clear
+	echo -e "etaaaa idatzi zerbait\033[38;5;14m!!!!!⚡⚡⚡⚡" 
+	gworkdir=/Users/violetagonzalezgarcia/gitclones/geus/euskera/idazlanak
+	cd ${gworkdir} 
+   tree	${gworkdir}
+}
+
+function informaticaLAT() { #informaticaHERE
+clear
+	echo
+}
+
+function mecanoLAT() { #mecanoHERE
+clear
+	echo -e "\033[38;5;118mlat \033[38;5;195mabre la página de los custom tests 
+ \033[38;5;14my seguido me \033[38;5;195mselvvacat \033[38;5;14mcada \033[38;5;118mejercicio de typing \033[38;5;11m→ \033[38;5;14mpara yo \033[38;5;11mselect \033[38;5;14my \033[38;5;11mcp\033[38;5;14m/\033[38;5;11mpaste \033[38;5;14muno de ellos como typingtest \033[38;5;195m→ hago el mismo 2x5m, sin random y con random 🔥 "       
+ echo -e "\033[38;5;228m'ultimo d'ia hecho → \033[38;5;218mbat"  
+	brave-browser https://10fastfingers.com/widgets/typingtest &
+	workdir=/Users/violetagonzalezgarcia/gitclones/PROYECTO/equipo/TYPING/customtest
+	cd ${workdir}  	
+	clear
+	selvv -o [^-]*aux
+}
+
+
+function programmingLAT() { #programmingHERE
+clear
+	echo -e "👉 \033[38;5;195mLAT d💥es → \033[38;5;11malias \033[38;5;118mcpyncom\033[38;5;195m=cd \033[38;5;208m/Users/violetagonzalezgarcia/gitclones/notes/pyt_notes/Complete-Python-3-Bootcamp\033[38;5;195m"
+	cd /Users/violetagonzalezgarcia/gitclones/notes/pyt_notes/Complete-Python-3-Bootcamp
+	echo -e "\033[38;5;218m 💕 " 
+	realpath .
+	echo -e "\033[38;5;195mN🔥w ⇒  \033[38;5;118mcd\033[38;5;195m;\033[38;5;118m fastcd\033[38;5;195m;\033[38;5;118m opy\033[38;5;195m; and \033[38;5;118mlopy\033[38;5;195m. \033[38;5;118mopy\033[38;5;195m-\033[38;5;118mpyr\033[38;5;195m,\033[38;5;118mp\033[38;5;195m-\033[38;5;118mrpy 💥💥💥"
+ 	tree -d -L 1	
+}
+
+function sportLAT() { #sportHERE
+clear
+	echo
+}
+
+function waiting() {
+	echo -e "\033[38;5;195m" 
+	while read -r -p "$@ " -n 1 -s answer
+	do
+		if [[ ${answer} == [gG] ]]; then
+			break
+		fi
+	done
+	clomanow -v
+}
+function ystpelectricityLAT() { #ystpelectricityHERE
+clear
+echo -e "\033[38;5;195m💥 toma toma toma 🚨 🚨🚨🚨🚨🚨 ⇒  \033[38;5;118m termino con esto y  PV🌞 ⚡ 💪 ⚡ 💪 ⚡  " 	
+workdir="/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/temas/replanteo-solar-fotovoltaica"
+cd ${workdir}  
+${workdir}/s.sh
+#tree ${workdir}  
+
+	#
+	#[[ $(pwd) != "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas" ]] && echo -e "\033[38;5;195m👉 exiting until cda: work from \033[38;5;118mco; cd instalaciones-electricas-viviendas" && exit
+#
+	#echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mhasiera → 
+	#\033[38;5;208m ★\033[38;5;195m ver vídeo \033[38;5;14m '📽️ Cómo utilizar un multímetro o téster'\033[38;5;195m y notas en → \033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run in this terminal) → 
+	#\033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ hnew instalaciones-electricas-viviendas/1_Instalaciones-de-enlace/1.tester-multimetro.md
+	#"
+	#continua
+	#espiask
+	#vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/1.tester-multimetro.mp4"
+	#clear
+	#echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mbat → 
+	#\033[38;5;208m ★\033[38;5;195mEstudio apartado 1 (con texto y 📽️ ) 👉 \033[38;5;218mleer tocho 1 hasta DGMP, y notas en → \033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run in this terminal) → 
+	#\033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ hnew instalaciones-electricas-viviendas/1_Instalaciones-de-enlace/2.apartado-1.instalaciones-de-enlace.md
+	#"
+	#continua
+	#espiask
+	#vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/explicacion-apuntes-1.mp4"
+	#clear
+	#continua
+#
+	#echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mbi → 
+	#\033[38;5;208m ★\033[38;5;195mEstudio apartado 2 (con texto y 📽️ ) 👉 \033[38;5;218m tocho 1, desde Características y tipos de elementos, hasta ...regletas de conexión, y notas en → \033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run 🔥TWICE🔥 in this terminal) → 
+	#\033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ locate & vim 2.apartado-1.instalaciones-de-enlace.md
+	#"
+	#continua
+	#espiask
+	#vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/explicacion-apuntes-2.1.mp4"
+	#clear
+	#continua
+	#espiask
+#	vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/explicacion-apuntes-2.2.mp4"
+#	clear
+#	continua
+#	echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mhiru → 
+#	\033[38;5;208m ★\033[38;5;195mEstudio apartado 3 (con texto y  📽️ ) 👉 \033[38;5;218mterminar\033[38;5;11m!! \033[38;5;218mtocho 1, desde Emplazamiento y montaje, hasta el final; y notas en → \033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run in this terminal) → 
+#	\033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ locate & vim 2.apartado-1.instalaciones-de-enlace.md
+#	"
+#	continua
+#	espiask
+#	vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/explicacion-apuntes-3.mp4"
+#	clear
+#	continua
+	echo -e "🤗 💕 holaaaaaa 🐒 "
+#	echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mlau → Ver vídeo 📽️  sobre instalaciones eléctricas de enlace → 
+#	\033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run in this terminal) →
+#    \033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ locate & vim 2.apartado-1.instalaciones-de-enlace.md
+#    "
+#	continua
+#    espiask
+#    vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/instalaciones-electricas-de-enlace.mp4"
+#	clear
+#	continua
+#    echo -e "Y ahora : UN EJERCICIO PRÁCTICO ⚡⚡⚡⚡⚡⚡⚡!!! \033[38;5;195mTOMA ARNASA " 
+#	echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mbost → leer el pdf , y HACER!! » 
+#	\033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mevince \033[38;5;14mwill run in this terminal) → \033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ hnew instalaciones-electricas-viviendas/1_Instalaciones-de-enlace/ejercicio-practico-1-solucion.md
+#	"
+#	continua
+#	evince "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/1_Instalaciones-de-enlace/practicas/1.instalaciones-de-enlace_ejercicio-practico-1.pdf"
+#	clear
+#	continua
+#	echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195msei → Ver vídeo 📽️ instalacion-real-ejemplo.mp4 → 
+#	\033[38;5;228mSPLIT WINDOW \033[38;5;14m(\033[38;5;118mvlc \033[38;5;14mwill run in this terminal) →
+#    \033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ locate & vim 2.apartado-1.instalaciones-de-enlace.md
+#    "
+#	continua
+#	espiask
+#	vlc "/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/videos/1_UF0884_enlace_en_edificios/1.1_Instalaciones_de_enlace/instalacion-real-ejemplo.mp4"
+#	clear
+#	continua
+#	echo -e "🔥 \033[38;5;195mEGUNA 💫 \033[38;5;118mEINS \033[38;5;218m→ hasiera gehi zortzietako: \033[38;5;195mzortzi ETA AZKENA 🤩 🤩 🤩 →
+#	\033[38;5;228mSPLIT WINDOW \033[38;5;14m this one will vim AUTO-TEST QUESTIONS for \033[38;5;218mme, la menda-lerenda 🌸🌸🌸 \033[38;5;14m, to write out my knowledge\033[38;5;11m!!!
+#	\033[38;5;208m ★ NEW TERMINAL → \033[38;5;118m\$ hnew instalaciones-electricas-viviendas/1_Instalaciones-de-enlace/auto-test.md
+#	"
+#	vim /Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/content/instalaciones-electricas-viviendas/auto-test.1
+#	continua
+	echo -e "\033[38;5;9mITTTTTTTT'S TIIIIIIIIIIIME\033[38;5;11m⚡⚡⚡⚡⚡⚡!!!!!!!!!!!! \033[38;5;195m to take de complicarme menos la vida 💥 
+  	\033[38;5;218m Ánimo 🤩🤩🤩🤩🤩🤩🤩🤩 !!!!!!!!!!! 🚀 🚀🚀🚀🚀🚀"
+}
+
+
+##DIRECTORIES 
+	#donde está el lat
+bindir=/Users/violetagonzalezgarcia/gitclones/bin
+	#donde está el symled-working lat
+curdir=$(pwd)
+	#donde establezco conscientemente que hay que trabajar, lo lleno en MAIN
+workreadydir=""
+##FILES 
+latf=$0 
+#VARIABLES
+
+while getopts ":eh" o; do
+	case ${o} in
+		e)
+			opte ${linu}  
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN
+# test para que lat pueda coger la senal forced as $1, y no la de bashrc → útil en clop!!!
+if [[ $1 ]]; then
+	wog=$1 
+	echo -e "\033[38;5;218mhola \033[38;5;228m${wog} 🤗" 
+else 
+	wog=$(sed -ne '/^geus=/,/^extendother=/p' /Users/violetagonzalezgarcia/gitclones/.bashrc | grep true )
+	wog=$(echo $wog | sed -ne "s/=.*//p" )
+fi
+
+latsayshello ${wog}
+continua
+
+case "${wog}" in 
+	"docspersonalesyrepasos")
+		docspersonalesyrepasosPending && continua
+		docspersonalesyrepasosLAT
+		;;
+	"extendother")
+		extendotherPending && continua
+		extendotherLAT
+		;;
+	"geus")
+		geusPending && continua
+		geusLAT
+		;;
+	"informatica")
+		informaticaPending && continua
+		informaticaLAT
+		;;
+	"mecano")
+		mecanoPending && continua
+		mecanoLAT
+		;;
+	"programming")
+		programmingPending && continua
+		programmingLAT
+		;;
+	"sport")
+		sportPending && continua
+		sportLAT
+		;;
+	"ystpelectricity")
+		ystpelectricityPending && continua
+		ystpelectricityLAT
+		;;
+esac

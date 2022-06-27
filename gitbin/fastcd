@@ -1,0 +1,57 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\e[38;5;118m${cuseco} ⇒  \e[38;5;11mtype:\e[38;5;118mvio-basadmin ⇒  cd, sed alis file"
+	echo -e "\e[38;5;195m a dónde \e[38;5;11m⭐ hay que ir \e[38;5;11m⭐ \e[38;5;195m rápido \e[38;5;212m rapidito ❤️️ 
+	\e[38;5;118m★ \e[38;5;9moption c \e[38;5;195malternativa cde 🚁  
+	\e[38;5;43m\t👉\t\e[38;5;11m${cuseco} -$o\e[0m"
+	return 25
+}
+	
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu
+##DIRECTORIES
+##FILES
+alisfile=/home/violeta/.bash_aliases
+#VARIABLES
+cdaocde=cda
+newcda=$1
+### MAIN
+while getopts ":ehc" o; do 
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+#			echo -e "PENDING whatis!! 🔥 "
+			exit
+			;;
+		c)
+			cdaocde=cde
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+[[ ! -e $1 ]] && newcda=$(pwd)
+
+echo -e "\e[38;5;228mAND NEW \e[38;5;11m${cdaocde} ⭐⭐⭐\\e[38;5;195m $(sed -ne "/^alias ${cdaocde}=/s?=.*?=\'${newcda}\'?p" ${alisfile})\\e[38;5;118m?????????????"
+if asksure; then
+	sed -i "/^alias ${cdaocde}=/s?=.*?=\'cd ${newcda}\'?" ${alisfile}   
+	echo -e "\e[38;5;11mD✨NG!!!!"
+    echo -e "\e[38;5;14m$(sed -ne "/^alias ${cdaocde}=/p" ${alisfile}) \e[0m"  	
+else
+	echo -e "\e[38;5;118mCome back with the \\e[38;5;212mrealpath \\e[38;5;118mdir!! "
+fi

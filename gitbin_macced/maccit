@@ -1,0 +1,49 @@
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\033[38;5;118m${cuseco} ⇒  \033[38;5;11mtype:\033[38;5;118mvio-helpers ⇒  pwd if for ls sed"
+	echo -e "\033[38;5;195m if im in mac \033[38;5;11m⭐ sed -i '' cada bin file \033[38;5;11m⭐ \033[38;5;195m para adapt it to maccos stuff \033[38;5;212m PENDING improve ❤️️ 
+	\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+	return 25
+}
+while getopts ":eh" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis 2>/dev/null
+			[[ "$?" == 25  ]] || echo -e "PENDING whatis!! 🔥 "
+			exit
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+#MAIN
+whereami=$(pwd)
+
+if [[ ${whereami} =~ "garcia" ]]; then
+   	echo -e "👍👍👍"
+else
+#	echo -e "keep status quo!!!!!!!!!!!!!!	"
+	echo -e "\033[38;5;195m 👉 ${whereami} " 
+#	exit
+fi
+
+for miexe in $(ls)
+do
+#	sed -i '' '' -f tomac_script.sed ${miexe} 
+	sed -i '' -f tomac_script.sed ${miexe} 
+	echo -e "\033[38;5;218m ${miexe} \033[38;5;190mmacced 👍"  
+done	

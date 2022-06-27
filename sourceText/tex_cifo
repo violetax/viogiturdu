@@ -1,0 +1,188 @@
+:insert
+%<+  +>  !comp!  !exe!
+%%up until "\begin{document}" is the "header." This sets up the whole document (format, style, additional things)
+%\command[modifier1, modifier2]{argument} is a general format
+
+\\documentclass[12pt, amssymb, one column]{article}
+
+\\usepackage[utf8]{inputenc}
+
+%\pagenumbering{gobble}
+
+\\usepackage{times, cancel, changepage, graphicx, fancyhdr, graphicx, enumitem, hyperref, xcolor}
+
+\\usepackage[per-mode=fraction]{siunitx}
+
+
+\\long\def\greybox#1{%
+
+    \\newbox\contentbox%
+
+    \\newbox\bkgdbox%
+
+    \\setbox\contentbox\hbox to \hsize{%
+
+        \\vtop{
+
+            \\kern\columnsep
+
+            \\hbox to \hsize{%
+
+                \\kern\columnsep%
+
+                \\advance\hsize by -2\columnsep%
+
+                \\setlength{\textwidth}{\hsize}%
+
+                \\vbox{
+
+                    \\parskip=\baselineskip
+
+                    \\parindent=0bp
+                    #1
+                }%
+
+                \\kern\columnsep%
+
+            }%
+
+            \\kern\columnsep%
+        }%
+    }%
+
+    \\setbox\bkgdbox\vbox{
+
+        \\pdfliteral{0.85 0.85 0.85 rg}
+
+        \\hrule width  \wd\contentbox %
+               height \ht\contentbox %
+               depth  \dp\contentbox
+
+        \\pdfliteral{0 0 0 rg}
+    }%
+
+    \\wd\bkgdbox=0bp%
+
+    \\vbox{\hbox to \hsize{\box\bkgdbox\box\contentbox}}%
+
+    \\vskip\baselineskip%
+}
+
+
+\\usepackage{lipsum}  
+
+\\usepackage{blindtext}
+
+\\def\UrlBreaks{\do\/\do-}
+
+\\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+}
+
+\\urlstyle{same}
+
+\\usepackage{xurl}
+
+%\graphicspath{ {./images} }
+%\usepackage[margin=1.5in]{geometry}
+
+\\usepackage[
+  height=9in,      % height of the text block
+  width=7in,       % width of the text block
+  top=78pt,        % distance of the text block from the top of the page
+  headheight=48pt, % height for the header block
+  headsep=12pt,    % distance from the header block to the text block
+  heightrounded,   % ensure an integer number of lines
+%  showframe,       % show the main blocks
+  verbose,         % show the values of the parameters in the log file
+]{geometry}
+
+\\usepackage{fancyhdr, lastpage}
+
+\\newcommand{\ihat}{\mathbf {\hat \imath}}
+
+\\newcommand{\jhat}{\mathbf {\hat \jmath}}
+
+%COLOR FOR TITLE
+
+\\definecolor{aoenglish}{rgb}{0.0,0.5,0.0}
+
+\\definecolor{lincolngreen}{rgb}{0.1,0.35,0.02}
+
+%<ref>https://latexcolor.blogspot.com/2019/10/list-of-latex-colors.html</ref>
+
+%you only really need a documentclass/ packages to make a document, the following is just nice formatting. You can easily remove it or look up something else
+%that you like better
+
+%FANCYHEADER
+%fancy aparece en todas; extra styles, como por ejemplo \pagestyle{plain}, aparecerían o en todas, o desde el primer clearpage (sin cambios aunque haya más clears)
+
+\\fancypagestyle{plain}{
+
+%<{}>MODULENAMEHERE
+
+\\fancyhead[L]{\color{aoenglish}<{}>}
+%gotosnippet
+
+\\fancyhead[R]{\color{aoenglish}Violeta González}
+
+\\fancyfoot[L]{\color{lincolngreen}\small Instalaciones solares fotovoltaicas}
+
+\\fancyfoot[C]{\color{lincolngreen}\small{\thepage} de \color{lincolngreen}\pageref*{LastPage}}
+
+\\fancyfoot[R]{\color{lincolngreen}\small MasterD}
+}
+
+%TITLE and section style
+%<{}>TITLE HERE snippet tit for title
+<{}> 
+
+\\usepackage{sectsty}
+
+\\allsectionsfont{\fontsize{12}{15}\usefont{OT1}{phv}{bc}{n}\selectfont}
+
+\\usepackage{setspace}
+
+\\renewcommand{\baselinestretch}{1.5}
+
+%end of header, beginning of document
+
+\\begin{document}
+
+\\pagestyle{fancy}
+
+\\maketitle
+
+
+\\pagestyle{plain}
+
+%<{}> empezar a escribir aquí
+
+%\greybox{}
+%\indent\hspace{1cm} \textbullet\ blablablah \\
+
+% generates a paragraph of dummy lorem ipsum text
+%\\blindtext 
+
+%snippet → sec
+%imap → C-l C-o para latex m²
+
+% generates multiple paragraphs of dummy lorem ipsum text
+%\Blindtext 
+
+% generates whole document with dummy lorem ipsum text
+%\Blinddocument 
+
+
+%\clearpage
+%To insert image:
+%\begin{center}
+%\includegraphics[scale=.8]{image.png}
+%\end{center}
+%Note that the file must be in ./images, the folder within the tex folder 
+
+\\end{document}
+.

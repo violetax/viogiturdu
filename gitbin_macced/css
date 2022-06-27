@@ -1,0 +1,74 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\033[38;5;118m${cuseco} ⇒  \033[38;5;11mtype:\033[38;5;118mvio-helper ⇒  ls select vim css"
+	echo -e "\033[38;5;195m rápidamente abrir el css que haya... \033[38;5;11m⭐ o si hay varios, select one \033[38;5;11m⭐ \033[38;5;195m si no hay ninguno, crear uno \033[38;5;212m con las opciones \033[38;5;190mse puede crear uno nuevo (y me evito type la \033[38;5;208mext \033[38;5;195m.css\033[38;5;190m)  ❤️️  \033[38;5;14mtambién admite \033[38;5;195m\$1 \033[38;5;14macelerando el \033[38;5;190mselect \033[38;5;14msi hay varios     
+	\033[38;5;118m★ \033[38;5;9moption <{}> \033[38;5;195mPENDING 🚁  
+	\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+	return 25
+}
+
+
+## SOURCES 
+##VARS-FILES
+##FUNCTIONS
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+source Echocolors.fu # black red green yellow blue magenta cyan white pink orange whiteguay @+N
+##DIRECTORIES 
+##FILES
+#VARIABLES
+
+while getopts ":ehn" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;; 
+		n)
+			shift $((OPTIND-1))
+			nuevocss="$1.css"
+			vim ${nuevocss} 	
+			exit
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+    
+done
+shift $((OPTIND-1))
+
+### MAIN
+
+[[ $1 ]] && aceleraselect=$1 && vim ${aceleraselect} && exit
+
+cssarr=($(ls *css 2>/dev/null)) 
+cuantos=${#cssarr[@]}
+
+case ${cuantos} in 
+	0)
+	 echo -e "\033[38;5;9m no hay css!! \033[38;5;195m Crenando basic \033[38;5;228mstyles.css" 
+	 sleep 0.5
+	 dcss="styles.css"
+	 ;;
+ 	1)
+	 dcss="${cssarr[0]}" 
+ 	;;
+	*)
+		select acss in $(echo -e "${cssarr[@]}")
+		do
+			dcss=${acss}    
+			break
+		done
+ 	;;
+esac
+
+vim ${dcss}  

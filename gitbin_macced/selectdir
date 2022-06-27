@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+
+
+function whatis() {
+	cuseco=$(basename $0)
+	echo -e "\033[38;5;118m${cuseco} ⇒  \033[38;5;11mtype:\033[38;5;118mvio-basadmin ⇒  gets pwd → select dir to cd and tree"
+	echo -e "\033[38;5;195m Support para \033[38;5;11m⭐ alias \033[38;5;118m cres⭐ \033[38;5;195m as simple as \033[38;5;212m that ❤️️ 
+	\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+while getopts ":eh" o; do
+	case "${o}" in
+		e)
+			opte
+			exit
+		;;
+		h)
+			whatis
+			exit
+		;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			exit
+		;;
+	esac
+done
+shift $((OPTIND-1))
+
+
+curdir=$(pwd)
+select dir in $(find ${curdir} -type d -exec basename {} \;)
+do
+	cd ${dir}  
+	tree ${curdir}/${dir} 
+	break
+done 

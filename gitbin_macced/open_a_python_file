@@ -1,0 +1,41 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+ echo -e "\033[38;5;118m${cuseco}	⇒ 	\\033[38;5;11mtype:\\033[38;5;118mpy ⇒  vim, like source text, chmod"
+echo -e "	\\033[38;5;195m Create a py file con el name del current directory \\033[38;5;11m⭐\\033[38;5;195m opy \\033[38;5;11m⭐\\033[38;5;195m \\033[38;5;212m❤️️ \\n\\033[38;5;43m\t👉\t\033[38;5;11m${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source GralGetops.fu 
+
+function create() {
+	touch $1
+	echo -e "#!/usr/bin/python3" >> $1
+	chmod +x $1
+	vim $1
+}
+
+
+##DIRECTORIES
+##FILES
+#VARIABLES
+presuf=py
+thisd=$(pwd | awk -F "/" '{print $NF}')
+fname="${presuf}_${thisd}.${presuf}"  
+
+### MAIN
+while getopts ":eh" o; do
+    gralGetops
+done
+shift $((OPTIND-1))
+
+if [[ ! ${fname} ]]; then
+	create ${fname}   
+else
+	vim ${fname}  
+fi

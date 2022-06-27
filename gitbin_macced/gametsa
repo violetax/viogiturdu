@@ -1,0 +1,239 @@
+#!/bin/bash
+
+function whatis() {
+	cuseco=$(basename $0)
+    echo -e "\033[38;5;118m${cuseco} → \\033[38;5;11mtype:\\033[38;5;118mvio-basadmin: html → case for ab >> exrc "
+    echo -e "\033[38;5;118m⇒  \\033[38;5;195mEL SUEÑO GRAMATICAL → abre gametsa, y mete las palabras que quieras underlined, bold, italic...
+	Se crea un .exrc para html files
+    ⭐\033[38;5;212m Yuhuuuuuuuuuuu ⭐ ❤️️  \\033[38;5;43m\t\t👉\t[38;5;228m\t${cuseco} -$o\033[0m"
+}
+
+## SOURCES
+##VARS-FILES
+##FUNCTIONS
+source Opte.fu
+source Asksure.fu
+source /Users/violetagonzalezgarcia/gitclones/bin/auxiliaries/aproespecific/exrc.gametsa.aux
+
+
+function mydebug() {
+		echo -e " 👉 ⭐ \033[38;5;208m  GRUPO ⇒  name-of-$1 \033[38;5;195m"
+		echo -e " 👉 subrayados: value-of-$1 
+		∙ \033[38;5;118m TAGS --> \033[38;5;195m others-like-at-ct-exrc-$2 $3 $4 💥 " 
+	}
+
+function otherabs() {
+	#other abs for html only → 
+	echo -e "ab bul &bull;" >> $1
+	echo -e "ab wul &#9702;" >> $1
+	echo -e "ab dibu &diams;"  >> $1
+	echo -e "ab tribul &#8227;" >> $1
+    echo -e "ab buci &#1995;" >> $1
+	echo -e "ab olcir &olcir;" >> $1
+	echo -e "ab ofcir &ofcir;" >> $1
+	echo -e "ab rar &rarr;" >> $1
+	echo -e "ab lar &larr;" >> $1
+}
+##DIRECTORIES
+curdir=$(pwd)
+maindir=/Users/violetagonzalezgarcia/gitclones/PROYECTO/estudios/instalacionfotovoltaica/layouts
+binpauxdir=/Users/violetagonzalezgarcia/gitclones/bin/auxiliaries/aproespecific
+##FILES
+exrc="${maindir}/.exrc"
+baseexrc="${binpauxdir}/gametsa.exrc" 
+#VARIABLES 
+any=false
+
+while getopts ":eha" o; do
+	case ${o} in
+		e)
+			opte
+			exit
+			;;
+		h)
+			whatis
+			exit
+			;;
+		a)
+			any=true
+			;;
+		?)
+			echo -e "Nein nein nein option → ${o}"
+			exit
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+### MAIN 
+[[ ${any} = true ]] && exrc=".exrc"
+
+echo -e "💫 \033[38;5;195mRedo .exrc??"
+if asksure; then
+	cp ${baseexrc} ${exrc} 
+fi	
+
+function forabin() {
+	for abb in $1
+	do
+		echo -e "ab ${abb} ${2}${abb}${3}" >> $4
+	done
+}	
+
+
+#for group in "subrayados" "italic" "bold" "subraita" "subrabol" "subraitabol" "itabol" "bgyellow"
+for group in "subrayados" "italic" "bold" "subraita" "subrabol" "subraitabol" "itabol" "bgyellow" "ubicacion_bgc_fuchsia" "temporales_bgc_wheat" "conjunciones_bgc_orangeRed" "posesivos_bgc_greenYellow" "adverbios_bgc_violet" "calidad_bgc_gold" "interrogativos_bgc_deepPink" "preposiciones_bgc_ligthCyan" "cantidad_bgc_beige" "indefinidos_bgc_yellow" "demostrativos_bgc_cyan" "personales_bgc_darkOrange" "posibilidad_bgc_chocolate"
+do
+	case ${group} in 
+		"bgyellow")
+			at='<p style="display:inline-block;background-color: yellow">' #style="color:red">'
+			ct='</p>'
+			for abb in ${bgyellow}
+			do
+				echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+			;;
+		"subrayados")
+			at="<u>"
+			ct="</u>"
+			forabin "${subrayados}" ${at} ${ct} ${exrc}
+		;;
+		"italic")
+			at="<i>"
+			ct="</i>"
+			forabin "${italic}" ${at} ${ct} ${exrc}
+		;;
+		"bold")
+			at="<b>"
+			ct="</b>"
+			forabin "${bold}" ${at} ${ct} ${exrc}
+		;;
+		"subraita")
+			at="<u><i>"
+			ct="</i></u>"
+			forabin "${subraita}" ${at} ${ct} ${exrc}
+		;;
+		"subrabol")
+			at="<u><b>"
+			ct="</b></u>"
+			forabin "${subrabol}" ${at} ${ct} ${exrc}
+		;;
+		"subraitabol")
+			at="<u><i><b>"
+			ct="</b></i></u>"
+			forabin "${subraitabol}" ${at} ${ct} ${exrc}
+		;;
+		"itabol")	
+			at="<i><b>"
+			ct="</b></i>"
+			forabin "${itabol}" ${at} ${ct} ${exrc}
+		;;
+		"ubicacion_bgc_fuchsia")
+			at='<p style="display:inline-block;background-color: Fuchsia">'
+			ct='</p>'
+			for abb in ${ubicacion_bgc_fuchsia}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"temporales_bgc_wheat")
+			at='<p style="display:inline-block;background-color: Wheat">'
+			ct='</p>'
+			for abb in ${temporales_bgc_wheat}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"conjunciones_bgc_orangeRed")
+			at='<p style="display:inline-block;background-color: OrangeRed">'
+			ct='</p>'
+			for abb in ${conjunciones_bgc_orangeRed}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"posesivos_bgc_greenYellow")
+			at='<p style="display:inline-block;background-color: GreenYellow">'
+			ct='</p>'
+			for abb in ${posesivos_bgc_greenYellow}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"adverbios_bgc_violet")
+			at='<p style="display:inline-block;background-color: Violet">'
+			ct='</p>'
+			for abb in ${adverbios_bgc_violet}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"calidad_bgc_gold")
+			at='<p style="display:inline-block;background-color: Gold">'
+			ct='</p>'
+			for abb in ${calidad_bgc_gold}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"interrogativos_bgc_deepPink")
+			at='<p style="display:inline-block;background-color: DeepPink">'
+			ct='</p>'
+			for abb in ${interrogativos_bgc_deepPink}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"preposiciones_bgc_ligthCyan")
+			at='<p style="display:inline-block;background-color: LigthCyan">'
+			ct='</p>'
+			for abb in ${preposiciones_bgc_ligthCyan}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"cantidad_bgc_beige")
+			at='<p style="display:inline-block;background-color: Beige">'
+			ct='</p>'
+			for abb in ${cantidad_bgc_beige}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"indefinidos_bgc_yellow")
+			at='<p style="display:inline-block;background-color: Yellow">'
+			ct='</p>'
+			for abb in ${indefinidos_bgc_yellow}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"demostrativos_bgc_cyan")
+			at='<p style="display:inline-block;background-color: Cyan">'
+			ct='</p>'
+			for abb in ${demostrativos_bgc_cyan}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"personales_bgc_darkOrange")
+			at='<p style="display:inline-block;background-color: DarkOrange">'
+			ct='</p>'
+			for abb in ${personales_bgc_darkOrange}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		"posibilidad_bgc_chocolate")
+			at='<p style="display:inline-block;background-color: Chocolate">'
+			ct='</p>'
+			for abb in ${posibilidad_bgc_chocolate}
+			do
+			echo "ab ${abb} ${at}${abb}${ct}" >> ${exrc}
+			done
+		;;
+		esac
+	
+done
+
+otherabs ${exrc}  
