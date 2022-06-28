@@ -19,7 +19,8 @@ do
 	let e=${e}-1 
 	edir="ex0${e}" 
 	mkdir ${edir} 
-	vim ${ejercicio}  
+	mv ${ejercicio} ${edir}   
+#	vim ${ejercicio}   
 	continua
 done	
     
