@@ -1,0 +1,27 @@
+#https://www.putorius.net/time-execution-of-script.html
+function logtime() {
+	time=$1
+	M=$(bc <<< "scale=6;$time/60")
+	m=$(printf "%.0f\n" $M)
+	S=$(bc <<< "scale=6;$M-$m")
+	ss=$(bc <<< "scale=6;$S*60")
+	s=$(printf "%.0f\n" $ss)
+  printf "%02dm %02ds\n" $m $s
+  #printf "%02d:%02d:%02d\n" $h $m $s
+  #echo $(logtime $SECONDS)
+  echo -e "SECONDS → $SECONDS"
+ }
+function commentwork() {
+	#${1} → work file like an audio
+	#${2} → logtime time output
+	#${3} → log file
+	echo -e "TLOG ${1} ✨ $(date +%D) → ${2}" > ${3}
+	echo -e "\e[38;5;195mTLOG \e[38;5;14m»\e[38;5;118m${1} \e[38;5;11m✨ \e[38;5;195m$(date +%D) → ${2}"
+	echo -e "\e[38;5;212mWrite a comment????"
+	if asksure; then
+		echo -e "\e[38;5;11m[Cat-write, ends with ^D] \e[38;5;14m"  
+		ls ${3}
+		cat >> ${3} 
+	fi
+}	
+# ♥

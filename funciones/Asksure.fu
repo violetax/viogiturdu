@@ -1,0 +1,19 @@
+# USAGE:
+# source Asksure.fu
+# if asksure; then 'yes option'; fi
+# [[ asksure ]] && echo -e "\e[38;5;195mOK"
+
+function asksure() {
+	echo -e "\e[38;5;118mAURRERA \e[38;5;15medo \e[38;5;9mEZ"
+
+	while read -r -n 1 -s answer 
+	do
+		if [[ ${answer} = [AaEe] ]]; then
+			[[ ${answer}  = [Aa] ]] && retval=0
+			[[ ${answer}  = [Ee] ]] && retval=1
+			break
+		fi
+	done
+	echo -e "\e[38;5;228m"  # for visuals...
+	return ${retval}  
+}

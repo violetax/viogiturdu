@@ -1,0 +1,27 @@
+# black red green yellow blue magenta cyan white
+function black() { echo "$(tput setaf 0)$*$(tput setaf 9)"; }
+function red() { echo "$(tput setaf 196)$*$(tput setaf 9)"; }
+function green() { echo "$(tput setaf 118)$*$(tput setaf 9)"; }
+function yellow() { echo "$(tput setaf 226)$*$(tput setaf 9)"; }
+function blue() { echo "$(tput setaf 75)$*$(tput setaf 9)"; }
+function magenta() { echo "$(tput setaf 205)$*$(tput setaf 9)"; }
+function cyan() { echo "$(tput setaf 123)$*$(tput setaf 9)"; }
+function white() { echo "$(tput setaf 7)$*$(tput setaf 9)"; }
+function pink() { echo "$(tput setaf 219)$*$(tput setaf 9)"; }
+function orange() { echo "$(tput setaf 215)$*$(tput setaf 9)"; }
+function whiteguay() { echo "$(tput setaf 231)$*$(tput setaf 9)"; }
+
+function green2() { echo "$(tput setaf 194)$*$(tput setaf 9)"; }
+function green2N() { echo "$(tput setaf 194)$*$(tput setaf 9)" | tr "\n" " "; }
+
+function blackN() {  echo "$(tput setaf 0)$*$(tput setaf 9)" | tr "\n" " "; }
+function redN() {  echo "$(tput setaf 196)$*$(tput setaf 9)" | tr "\n" " "; }
+function greenN() {  echo "$(tput setaf 118)$*$(tput setaf 9)" | tr "\n" " "; }
+function yellowN() {  echo "$(tput setaf 226)$*$(tput setaf 9)" | tr "\n" " "; }
+function blueN() {  echo "$(tput setaf 75)$*$(tput setaf 9)" | tr "\n" " "; }
+function magentaN() {  echo "$(tput setaf 205)$*$(tput setaf 9)" | tr "\n" " "; }
+function cyanN() {  echo "$(tput setaf 123)$*$(tput setaf 9)" | tr "\n" " "; }
+function pinkN() { echo "$(tput setaf 219)$*$(tput setaf 9)" | tr "\n" " "; }
+function orangeN() { echo "$(tput setaf 215)$*$(tput setaf 9)" | tr "\n" " "; }
+function whiteN() { echo "$(tput setaf 7)$*$(tput setaf 9)" | tr "\n" " "; }
+function whiteguayN() { echo "$(tput setaf 231)$*$(tput setaf 9)" | tr "\n" " "; }

@@ -1,0 +1,8 @@
+function creocle() {
+	if [[ ! -d $1 ]]; then
+		mkdir $1
+	else
+		rm  -rf $1/*
+	fi
+}
+# ♥
