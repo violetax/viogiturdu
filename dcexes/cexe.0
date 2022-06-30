@@ -1,0 +1,17 @@
+Capítulo III
+Ejercicio 00 : ft_putchar
+Ejercicio: 00
+ft_putchar
+Directorio de entrega: ex00/
+Archivos a entregar: ft_putchar.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre el carácter usado como parámetro.
+• El prototipo de la función deberá ser el siguiente:
+void ft_putchar(char c);
+
+Para mostrar el carácter, tendras que utilizar la función write de la siguiente forma.
+write(1, &c, 1);
+
+7
+

@@ -1,0 +1,394 @@
+C Piscine
+C 00
+
+Resumen: Este documento corresponde al enunciado del módulo C 00 de la piscina de
+42.
+Versión: 6
+
+Índice general
+I.
+
+Instrucciones
+
+2
+
+II.
+
+Introducción
+
+4
+
+III.
+
+Ejercicio 00 : ft_putchar
+
+7
+
+IV.
+
+Ejercicio 01 : ft_print_alphabet
+
+8
+
+V.
+
+Ejercicio 02 : ft_print_reverse_alphabet
+
+9
+
+VI.
+
+Ejercicio 03 : ft_print_numbers
+
+10
+
+VII.
+
+Exercise 04 : ft_is_negative
+
+11
+
+VIII.
+
+Ejercicio 05 : ft_print_comb
+
+12
+
+IX.
+
+Ejercicio 06 : ft_print_comb2
+
+13
+
+X.
+
+Ejercicio 07 : ft_putnbr
+
+14
+
+XI.
+
+Ejercicio 08 : ft_print_combn
+
+15
+
+1
+
+hastaaqui
+Capítulo I
+Instrucciones
+• Esta página será la única referencia: no te fíes de los rumores.
+• ¡Ten cuidado! Los enunciados pueden cambiar en cualquier momento.
+• Asegúrate de que tus directorios y archivos tienen los permisos adecuados.
+• Debes respetar el procedimiento de entrega para todos tus ejercicios.
+• Tus compañeros de piscina se encargarán de corregir tus ejercicios.
+• Además de por tus compañeros, también serán corregidos por un programa que se
+llama la Moulinette.
+• La Moulinette es muy estricta a la hora de evaluar. Está completamente automatizada. Es imposible discutir con ella sobre tu nota. Por lo tanto, se extremadamente
+riguroso para evitar cualquier sorpresa.
+• La Moulinette no tiene una mente muy abierta. No intenta comprender el código que
+no respeta la Norma. La Moulinette utiliza el programa norminette para comprobar
+La Norma en sus archivos. Entiende entonces que es estúpido entregar un código
+que no pase la norminette.
+• Los ejercicios han sido ordenados con mucha precisión, del más sencillo al más
+complejo. En ningún caso se tendrá en cuenta un ejercicio complejo si no se ha
+conseguido realizar perfectamente un ejercicio más sencillo.
+• El uso de una función prohibida se considera una trampa. Cualquier trampa será
+sancionada con la nota -42.
+• Solamente hay que entregar una función main() si lo que se pide es un programa.
+• La Moulinette compila con los flags -Wall -Wextra -Werror y utiliza gcc.
+• Si tu programa no compila, tendrán un 0.
+• No puedes dejar en tu directorio ningún archivo que no se haya indicado de forma
+explícita en los enunciados de los ejercicios.
+• ¿Tienes alguna pregunta? Pregunta a tu compañero de la derecha. Si no, prueba
+con tu compañero de la izquierda.
+2
+
+C Piscine
+
+C 00
+
+• Tu manual de referencia se llama Google / man / Internet / ....
+• ¡No olvides participar en el slack de tu Piscina!
+• Lee detenidamente los ejemplos. Podrían exigir cosas que no se especifican necesariamente en los enunciados...
+• Razona. ¡Te lo suplico, por Thor, por Odín! Maldita sea.
+
+Para este módulo, la Norminette debe ser ejecutada con el flag -R
+CheckForbiddenSourceHeader. La Moulinette también lo utilizará.
+
+3
+
+hastaaqui
+Capítulo II
+Introducción
+La mermelada de fideos, según Pierre Dac
+Antes de usar el fideo para preparar la mermelada, obviamente hay
+que cosecharlo; antes de cosecharlo tiene que crecer y para
+que crezca, naturalmente, primero hay que sembrarlo.
+La siembra de las semillas del fideo, es decir la fidembra, es
+una operación extremadamente delicada. En primer lugar, la elección de un
+terreno propicio para la fecundación del fideo requiere un estudio sensatamente
+exhaustivo. La finca fideícola típica debe estar, si es posible, situada al lado
+de la carretera provincial y cerca de la Guardia Civil.
+Antes de sembrar la semilla del fideo, los fideicultores preparan durante mucho
+tiempo el campo fideícola para convertirlo en idóneo para la fecundación.
+Remueven la tierra con un arado especializado cuya reja es remplazada por una
+cuchilla Gillette; después, despreciando los fertilizantes químicos, muy poco
+recomendables en este caso, abonan el campo fideícola con queso rallado. Se puede
+realizar esta operación tanto con una jeringuilla como con una bomba de bicicleta.
+Cuando el campo está lo suficientemente impregnado de queso rallado, se vierte
+sobre toda la superficie alcohol de menta a razón de una copa de Burdeos por
+hectárea de superficie; esta operación, que llevan a cabo los especialistas de
+la escuela de Fideicultura, se realiza con un cuentagotas.
+Después de eso, se deja fermentar la tierra durante todo el periodo de luna
+nueva y en cuanto aparece el cuarto creciente, se procede a la fidembra
+de las semillas de fideo. No piensen Uds., Señoras y
+Señores, que las semillas de fideo provienen de cualquier comercio y que se
+encuentra fácilmente en las tiendas de semillas; si Ud. piensa eso, está
+claro que pace en las laderas del error. La semilla de fideo solo
+se obtiene tras una larga preparación en laboratorio, dado que es el
+fruto de un cruce de hígado de ternera con un pepino adulto; he aquí,
+por cierto, algunos detalles sobre esta maravillosa unión que es el
+orgullo de nuestros químicos, cuya ciencia solo se puede equiparar a su modestia.
+Ponemos juntos, en una lavadora, un filete de hígado de ternera y un
+4
+
+C Piscine
+
+C 00
+
+pepino adulto, lo colocamos todo en una autoclave y lo dejamos durante 45 días
+a una temperatura de 120º, bajo la supervisión de un inspector de la Compañía
+del Gas; al cabo de ese periodo, abrimos el aparato y solo nos queda
+recoger las preciadas semillas que vamos a esparcir en la tierra preparada para
+recibirlas y fecundarlas.
+La fidembra se realiza con la ayuda de una estufa móvil en la cual se vierten, y
+se dispersan sobre la tierra con la ayuda de un dispositivo especial del que no
+tenemos derecho a revelar el secreto por cuestiones de defensa nacional
+fáciles de entender. Después de esto, se riega todo el campo con
+sifones de soda, a continuación se seca con papel secante, se limpia con
+un plumero y ya solo nos queda confiar en el trabajo de la tierra madre
+y de la naturaleza inmortal, generosa y democrática. Cuando se ha terminado
+la fidembra, los fideicultores, que todavía creen en supersticiones,
+consultan los augurios; cogen a un topo pequeño, le hacen correr sobre
+la hierba y si hace: "¡uh!" es que la cosecha será buena; si no
+hace "¡uh!" es que la cosecha será buena de todos modos, pero así
+se respetan las creencias y todo el mundo está contento.
+Durante la germinación, casi no hay nada que hacer; tan solo se riega el campo
+cada ocho días con aceite de enebro, ceniza de puro, zumo de limón y glicerina
+para evitar que se agriete la tierra.
+Durante la siega, las noches son testigo de los sanos festejos que
+organizan los trabajadores de la fideicultura, la juventud baila y
+disfruta al son de una orquesta compuesta por un armonio, una
+mandolina y una trompeta de caballería; los jóvenes se visten con su
+traje regional compuesto por una levita, un culotte de ciclista, alpargatas
+y un sombrero de copa; las jovencitas, con su rubor de púdica alegría,
+visten hermosos vestidos de tela de cataplasma, adornados con aplicaciones
+de schputnutz y se ciñen la frente con una corona de huevos cocidos de lo más
+elegante. Los festejos se clausuran con unos fuegos artificiales lanzados con
+lámparas de petróleo y cada uno vuelve a su casa, contento por el trabajo
+realizado, para proceder finalmente a la elaboración de la mermelada de fideos,
+objeto del presente estudio.
+Se selecciona con esmero el fideo, que aún se encuentra en estado bruto, y se le
+retiran las impurezas; después de una primera fase, se manda a la fábrica y se le
+introduce acto seguido en el lamifideo que le va a dar el aspecto definitivo tal y
+como lo conocemos - el lamifideo es una máquina extremadamente perfeccionada, que
+funciona con aguardiente de grosella negra y que puede producir hasta 80
+kilómetros de fideos por hora -; cuando el fideo sale del lamifideo, se le aplica
+una capa de barniz celulósico que lo hace impermeable y flexible; después se pica
+bien con un hacha de abordaje y se ralla. El proceso de rallado todavía se efectúa
+a mano con un rallador de madera. Una vez rallado, se embotella el fideo, una
+operación muy delicada que exige mucha atención; después se introducen las
+botellas en un aparato que se llama electrofideo, que los somete a una tensión
+de 210 voltios; tras permanecer 12 horas en ese aparato, se sacan las botellas
+5
+
+C Piscine
+
+C 00
+
+y se vacían los fideos, que ahora están electrificados, en un recipiente que
+se coloca sobre un hornillo de alcohol de alta tensión.
+Vertemos entonces en dicho recipiente: sal, azúcar, pimienta de Cayena,
+jengibre, canela, aceite, puré de patatas, un copo
+de magnesia bisurada, arroz, zanahorias, pieles de salchichón, tomates,
+vino blanco y pimientos rojos, mezclamos lentamente estos ingredientes con
+los fideos con la ayuda de un cazo y dejamos cocer a fuego lento
+durante 21 días. La mermelada de fideos está virtualmente terminada.
+Cuando han transcurrido los 21 días y la cocción ha alcanzado su punto
+álgido y definitivo, se coloca el recipiente en un armario para que se
+solidifique la mermelada y se vuelva gelatinosa; cuando se ha enfriado
+por completo, cogemos el recipiente con mucha delicadeza, con una precaución
+infinita y el máximo de prudencia y lo tiramos todo por la ventana,
+porque no está bueno!
+A diferencia de la mermelada de fideos, el C está bueno. ¡Cómelo!
+
+6
+
+hastaaqui
+Capítulo III
+Ejercicio 00 : ft_putchar
+Ejercicio: 00
+ft_putchar
+Directorio de entrega: ex00/
+Archivos a entregar: ft_putchar.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre el carácter usado como parámetro.
+• El prototipo de la función deberá ser el siguiente:
+void ft_putchar(char c);
+
+Para mostrar el carácter, tendras que utilizar la función write de la siguiente forma.
+write(1, &c, 1);
+
+7
+
+hastaaqui
+Capítulo IV
+Ejercicio 01 : ft_print_alphabet
+Ejercicio: 01
+ft_print_alphabet
+Directorio de entrega: ex01/
+Archivos a entregar: ft_print_alphabet.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre el alfabeto en minúsculas en una sola línea, en
+orden creciente, empezando en la letra “a”.
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_alphabet(void);
+
+8
+
+hastaaqui
+Capítulo V
+Ejercicio 02 :
+ft_print_reverse_alphabet
+Ejercicio: 02
+ft_print_reverse_alphabet
+Directorio de entrega: ex02/
+Archivos a entregar: ft_print_reverse_alphabet.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre el alfabeto en minúsculas en una sola línea, en
+orden decreciente, empezando en la letra “z”.
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_reverse_alphabet(void);
+
+9
+
+hastaaqui
+Capítulo VI
+Ejercicio 03 : ft_print_numbers
+Ejercicio: 03
+ft_print_numbers
+Directorio de entrega: ex03/
+Archivos a entregar: ft_print_numbers.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre, en una sola línea y en orden creciente, todos los
+dígitos.
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_numbers(void);
+
+10
+
+hastaaqui
+Capítulo VII
+Exercise 04 : ft_is_negative
+Ejercicio: 04
+ft_is_negative
+Directorio de entrega: ex04/
+Archivos a entregar: ft_is_negative.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre “N” o “P” en función del signo del entero que se
+haya usado como parámetro. Si n es negativo muestra “N”. Si n es positivo o nulo
+muestra “P”.
+• El prototipo de la función deberá ser el siguiente:
+void ft_is_negative(int n);
+
+11
+
+hastaaqui
+Capítulo VIII
+Ejercicio 05 : ft_print_comb
+Ejercicio: 05
+ft_print_comb
+Directorio de entrega: ex05/
+Archivos a entregar: ft_print_comb.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre, en orden creciente, todas las combinaciones posibles de tres dígitos distintos en orden creciente -sí, la repetición es voluntaria.
+• El resultado es algo parecido a esto:
+$>./a.out | cat -e
+012, 013, 014, 015, 016, 017, 018, 019, 023, ..., 789$>
+
+• 987 no está porque 789 ya existe
+• 999 no está porque este número no contiene exclusivamente dígitos distintos
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_comb(void);
+
+12
+
+hastaaqui
+Capítulo IX
+Ejercicio 06 : ft_print_comb2
+Ejercicio: 06
+ft_print_comb2
+Directorio de entrega: ex06/
+Archivos a entregar: ft_print_comb2.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre todas las combinaciones posibles de dos números
+entre 0 y 99, en orden creciente.
+• El resultado es algo parecido a esto:
+$>./a.out | cat -e
+00 01, 00 02, 00 03, 00 04, 00 05, ..., 00 99, 01 02, ..., 97 99, 98 99$>
+
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_comb2(void);
+
+13
+
+hastaaqui
+Capítulo X
+Ejercicio 07 : ft_putnbr
+Ejercicio: 07
+ft_putnbr
+Directorio de entrega: ex07/
+Archivos a entregar: ft_putnbr.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre el número que se ha usado como parámetro. La
+función deberá ser capaz de mostrar todos los valores posibles en una variable de
+tipo int.
+• El prototipo de la función deberá ser el siguiente:
+void ft_putnbr(int nb);
+
+• Por ejemplo:
+◦ ft_putnbr(42) muestra "42".
+
+14
+
+hastaaqui
+Capítulo XI
+Ejercicio 08 : ft_print_combn
+Ejercicio: 08
+ft_print_combn
+Directorio de entrega: ex08/
+Archivos a entregar: ft_print_combn.c
+Funciones autorizadas: write
+
+• Escribe una función que muestre todas las combinaciones de n dígitos en orden
+creciente.
+• n será tal que: 0 <n <10.
+• Si n = 2, el resultado es algo parecido a esto:
+$>./a.out | cat -e
+01, 02, 03, ..., 09, 12, ..., 79, 89$>
+
+• El prototipo de la función deberá ser el siguiente:
+void ft_print_combn(int n);
+
+15
+
+
