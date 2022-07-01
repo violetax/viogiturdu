@@ -1,12 +1,4 @@
-#include <stdio.h>
-
-char write(int x, char *a, int y)
-{
-	scanf("%c", &a);
-	printf("%c",a);
-}
-
-int main() {
-	char a = 'z';
-	write(1, &a, 1);
+#include <unistd.h>
+void ft_putchar(char c) {
+	write(1,&c,1);
 }
