@@ -1,0 +1,8 @@
+:insert 
+#include <unistd.h>
+#alias  sobic=' vim $HOME/.vim/sourceText/curdu_files'
+
+int main() {
+
+}
+.
