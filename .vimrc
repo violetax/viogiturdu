@@ -988,8 +988,12 @@ augroup END
 " auvio C files
 augroup c_files_augroup
 	autocmd!
-	autocmd BufNewFile *.c,*.cc,*.cpp :so /home/violeta/.vim/sourceText/c_files
-	au VimLeavePre *.c,*.cc,*.cpp if getline(1) =~ "^#include <" | :so /home/violeta/.vim/sourceText/mysnippets.header | endif
+	if expand("%:p:h") =~ "urduliz42"
+		autocmd BufNewFile *.c,*.cc,*.cpp :so /home/violeta/.vim/sourceText/curdu_files
+	else
+		autocmd BufNewFile *.c,*.cc,*.cpp :so /home/violeta/.vim/sourceText/c_files
+	endif
+"	au VimLeavePre *.c,*.cc,*.cpp if getline(1) =~ "^#include <" | :so /home/violeta/.vim/sourceText/mysnippets.header | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

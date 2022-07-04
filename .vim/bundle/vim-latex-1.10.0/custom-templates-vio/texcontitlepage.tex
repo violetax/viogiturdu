@@ -1,0 +1,99 @@
+<+  +>  !comp!  !exe!
+%\command[modifier1, modifier2]{argument} is a general format
+\documentclass[12pt, amssymb, one column]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{times, graphicx, fancyhdr, graphicx, enumitem, hyperref}
+\def\UrlBreaks{\do\/\do-}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=magenta,
+  urlcolor=cyan,
+}
+\urlstyle{same}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\graphicspath{ {./images} }
+%\usepackage[margin=1.5in]{geometry}
+\usepackage[
+    height=9in,      % height of the text block
+  width=7in,       % width of the text block
+    top=78pt,        % distance of the text block from the top of the page
+  headheight=48pt, % height for the header block
+    headsep=12pt,    % distance from the header block to the text block
+  heightrounded,   % ensure an integer number of lines
+  %  showframe,       % show the main blocks
+    verbose,         % show the values of the parameters in the log file
+  ]{geometry}
+  \usepackage{fancyhdr}
+  \usepackage{tocloft}
+  \pagestyle{fancy}
+
+\fancyhead[L]{Violeta González}
+\fancyhead[R]{ \normalsize}
+%\fancyhead[R]{Investigación científica}
+\fancypagestyle{plain}{
+\fancyhead[LO, RE]{Violeta González}
+\fancyhead[LE, RO]{Universidad de León\\ASIGNATURA}}
+
+
+\DefineBibliographyStrings{english}{%
+    references = {},
+  }
+
+\renewcommand*\contentsname{Contenidos}
+%end of header, beginning of document
+
+% Keywords command
+\providecommand{\keywords}[1]
+{
+    \small	
+	\textbf{\textit{Keywords---}} #1
+  }
+
+\begin{document}
+
+%To insert image:
+%\begin{center}
+%\includegraphics[scale=.8]{ProblemSet3Graph2.png}
+%\end{center}
+%Note that the file must be in the same folder. 
+
+\begin{titlepage}
+ \begin{center}
+           \vspace*{1cm}
+    
+		 \textbf{%%%}
+   
+         \vspace{0.5cm}
+        %%% 
+        \vspace{1.5cm}
+     
+           \textbf{Violeta González García}
+    
+           \vspace{0.8cm}
+    
+
+
+
+   
+     \end{center}
+   \end{titlepage}
+
+
+\tableofcontents
+\newpage
+
+%%% %START HERE!
+
+\section{Fuentes de información y referencias bibliográficas}
+\subsection{Análisis de la bibliografía}
+\subsection{Referencias}
+\begin{thebibliography}{}
+  \bibitem{1}
+	%SURNAME, %name, et. al, año. %Title. En: \textit{%where} [en línea]. Lugar de publicación: %where. Consulta: \today. Disponible en: \burl{%url}
+\end{thebibliography}
+
+	
+	\end{document}

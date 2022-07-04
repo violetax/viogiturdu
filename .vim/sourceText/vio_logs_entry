@@ -1,0 +1,3 @@
+:read /home/violeta/.vim/sourceText/entry_line
+:r!date
+:normal kJo

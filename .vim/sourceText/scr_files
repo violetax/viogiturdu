@@ -1,0 +1,10 @@
+:insert 
+#!/bin/bash
+
+source Asksure.fu
+source Opte.fu
+source Continua.fu
+source Echocolors.fu # black red green yellow blue magenta cyan white pink orange whiteguay @+N
+
+
+.

@@ -1,0 +1,1 @@
+/home/violeta/STUDYING/investigacib/tendencias/practicas/practica1/.vim

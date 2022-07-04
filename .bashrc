@@ -29,6 +29,7 @@ programming=false
 mecano=false
 ystpelectricity=false
 sport=false
+urduliz=true
 extendother=false
 
 clop_bash_persistent_history_set_ownclop() { 
@@ -39,6 +40,7 @@ clop_bash_persistent_history_set_ownclop() {
 [[ $mecano = true ]] && ownclop=/home/violeta/.clogs/maestros/mecano.oclog
 [[ $ystpelectricity = true ]] && ownclop=/home/violeta/.clogs/maestros/ystpelectricity.oclog
 [[ $sport = true ]] && ownclop=/home/violeta/.clogs/maestros/sport.oclog
+[[ $urduliz = true ]] && ownclop=/home/violeta/.clogs/maestros/urduliz.oclog
 [[ $extendother = true ]] && ownclop=/home/violeta/.clogs/maestros/extendother.oclog
 }
 clop_bash_persistent_history_set_ownclop
@@ -382,3 +384,12 @@ export BC_ENV_ARGS=/home/violeta/.bcrc
 vuse=/home/violeta/.dcopies_prev_installations/dusrlocbin
 export vuse
 export epru=/home/violeta/pruebas/emptypru
+###################
+chr() {
+  [ "$1" -lt 256 ] || return 1
+  printf "\\$(printf '%03o' "$1")"
+}
+
+ord() {
+  LC_CTYPE=C printf '%d' "'$1"
+}

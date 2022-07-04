@@ -1,0 +1,9 @@
+:insert 
+#!/usr/bin/awk -f 
+<{}>
+BEGIN 	{ <{}> } 
+		{ <{}> }	
+END   	{ <{}> }
+
+#run in cli with $ awk -f thisawkfile.awk inputfile
+.

@@ -1,0 +1,63 @@
+<+  +>  !comp!  !exe!
+%previously proyectoinv.tex
+%%up until "\begin{document}" is the "header." This sets up the whole document (format, style, additional things)
+%\command[modifier1, modifier2]{argument} is a general format
+\documentclass[12pt, amssymb, one column]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{times, cancel, changepage, graphicx, fancyhdr, graphicx, enumitem, hyperref}
+\def\UrlBreaks{\do\/\do-}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+}
+\urlstyle{same}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\graphicspath{ {./images} }
+%\usepackage[margin=1.5in]{geometry}
+\usepackage[
+  height=9in,      % height of the text block
+  width=7in,       % width of the text block
+  top=78pt,        % distance of the text block from the top of the page
+  headheight=48pt, % height for the header block
+  headsep=12pt,    % distance from the header block to the text block
+  heightrounded,   % ensure an integer number of lines
+%  showframe,       % show the main blocks
+  verbose,         % show the values of the parameters in the log file
+]{geometry}
+\usepackage{fancyhdr}
+
+\newcommand{\ihat}{\mathbf {\hat \imath}}
+\newcommand{\jhat}{\mathbf {\hat \jmath}}
+
+%you only really need a documentclass/ packages to make a document, the following is just nice formatting. You can easily remove it or look up something else
+%that you like better
+
+\pagestyle{fancy}
+
+\fancyhead[L]{Violeta González}
+\fancyhead[C]{\huge %%%  \normalsize}
+\fancyhead[R]{%%% \\%%%}
+\fancypagestyle{plain}{
+\fancyhead[LE, RO]{Violeta González}
+\fancyhead[LO, RE]{%%%}}
+
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.5}
+
+%end of header, beginning of document
+
+\begin{document}
+
+%To insert image:
+%\begin{center}
+%\includegraphics[scale=.8]{ProblemSet3Graph2.png}
+%\end{center}
+%Note that the file must be in the same folder. 
+
+
+
+
+\end{document}
