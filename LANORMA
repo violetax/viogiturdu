@@ -1,0 +1,99 @@
+##LEntry 1: Tue 05 Jul 2022 06:43:43 AM CEST
+ 
+LA NORMA ⇒  
+
+III.1. Denominaciones . . . . . . . . . . . . . .
+III.2. Formato . . . . . . . . . . . . . . . . . .
+III.3. Funciones . . . . . . . . . . . . . . . . . .
+III.4. Typedef, struct, enum y union . . . . . .
+III.5. Headers - a.k.a incluir archivos . . . . . .
+III.6. El 42 header - a.k.a iniciar un archivo con
+ estilo
+III.7. Macros y Pre-processadores . . . . . . . .
+III.8. ¡Cosas prohibidas! . . . . . . . . . . . . .
+III.9. Comentarios . . . . . . . . . . . . . . . .
+III.10. Archivos . . . . . . . . . . . . . . . . . .
+III.11. Makefile . . . . . . . . . . . . . . . . . .
+
+
+ATT 25 líneas MÁXIMO
+ATT 80 caracteres MÁXIMO por línea 
+2xATT prohibidos los for, do ..  while, o ternarios
+
+
+1.	NOMBRES → 
+∙ struct typedef union enum global → prefijados
+∙ varibles, ficheros y directorios → solo [a-z] [0-9] [_]
+∙ variables, funciones, etc → snake case
+∙ ATT nombres en INGLÉS y descriptivos
+∙ variables globales ATT → solo const y static
+
+##LEntry 2: Tue 05 Jul 2022 07:17:15 AM CEST
+2.	FORMATO 
+
+∙ sangría de 4 TAB
+vimrc → ¿ set tabstop=4 ?? 
+∙ newline después de cada función
+∙ comentarios justo por encima
+∙ una instrucción por línea
+∙ líneas vacías sin whitespaces
+∙ ERR newlines o whitespaces consecutivos
+∙ ATT newline después de cada corchete o final de estructura
+∙ ATT espacio después de cada , y ; excepto si es hay newline
+∙ ATT cada operador u operando separado por un único espacio
+∙ cada declaración de variable en la sangría de su ámbito
+∙ las palabres clave excepto sizeof y declaraciones, seguidas de un espacio
+∙ los asteriscos de los punteros se añaden al nombre de la variable
+∙ una declaración de variable por línea
+∙ ATT separa declarar e innicializar expecto en const y estáticas (y globales permitidas)
+∙ ATT las declaraciones al principio de la función
+∙ 2xATT unicas líneas vacías en la función → después de las declaraciones de variables, o estructuras de control (que terminan con corchete indentado)
+∙ las estructuras de control if, while → tienen llaves excepto si son unilínea
+
+3.	👉 2xATT ⇒  FUNCIONES → 
+⇒  tab entre tipo y nombre
+⇒  VOID explícito
+⇒  parámetros siempre nombrados y MÁXIMO CUATRO parámetros con nombre
+⇒  separación de una a otra por una nueva línea
+⇒  ATT MÁXIMO CINCO VARIABLES
+⇒  return entre paréntesis
+
+4.	Typedef, struct, enum y union
+⇒  una TAB después de declararlas, y un espacio cuando se declara una variable de su tipo ... ???
+⇒  typedef precedido de TAB
+⇒  nombres de las estructuras de un mismo ámbito, indentados
+⇒  2xATT verboten declarar struct en archivo .c
+
+5.	INCLUDES ⇒  todo al principio ; ATT verboten c files
+⇒  ATT protección contra dobles inclusiones → usar MACROS → FT_FOO_H para  ft_foo.h ???
+⇒  ATT no incluir lo que no se usa
+⇒  ¿  Todas las inclusiones de cabecera deben estar justificadas en un archivo .c así como en un archivo .h.  ?? 
+
+6.	42 header → √ 
+7.	MACROS y PRE-PROCESADORES 
+⇒  ATT #define solo para valores literales y constantes
+⇒  solo macros de bibliotecas estándar
+⇒  solo macros unilínea
+⇒  nombres de macros en mayúscula
+⇒  a continuación de #if, #ifdef, #ifndef → sangría
+8.	ATT verboten
+◦ for
+◦ do...while
+◦ switch
+◦ case
+◦ goto
+• Los operadores ternarios como ‘?’.
+• VLAs - Variable Length Arrays.
+• Tipo implícito en las declaraciones de variables
+
+9.	Comentarios
+⇒  2xATT fuera de las funciones only, en inglés y single lined
+10.	Archivos
+⇒  ATT verboten incluir c files
+⇒  MÁXIMO 5 function definitions por c file
+11.	Makefile ⇒  2xATT
+• Las reglas $(NAME), clean, fclean, re y all son obligatorias.
+• Si el Makefile hace un relink, el proyecto no será considerado funcional.
+• En el caso de un proyecto multibinario, además de las reglas anteriores, debe tener una regla all que compile los dos binarios así como una regla específica para cada binario compilado.
+• Si el proyecto llama a una biblioteca de funciones (por ejemplo un libft), el makefile debe compilar automáticamente esa biblioteca.
+• Los archivos necesarios para la compilación de tu programa deben citarse explícitamente en el Makefile.
