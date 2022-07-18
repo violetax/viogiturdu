@@ -1,0 +1,13 @@
+Ejercicio 00 : ft_strcmp
+ft_strcmp
+Directorio de entrega: ex00/
+Archivos a entregar: ft_strcmp.c
+Funciones autorizadas: Ninguna
+
+• Reproduce el comportamiento de la función strcmp (man strcmp).
+• El prototipo de la función deberá ser el siguiente:
+int
+
+ft_strcmp(char *s1, char *s2);
+
+
