@@ -1,5 +1,0 @@
-function continua() {
-	read -n 1 -r -s -p $'💫 Continúa 👉 pulsa cualquier tecla para ello!! \n'
-	echo
-}
-# ♥
